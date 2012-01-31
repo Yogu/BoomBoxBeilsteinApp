@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: P:\\Boom Box Beilstein\\Android\\BoomBoxBeilsteinApp\\src\\de\\gaglepinj\\boombox\\BBSInterface.aidl
+ * Original file: /home/jan/development/projects/boomboxbeilsteinapp/src/de/gaglepinj/boombox/BBSInterface.aidl
  */
 package de.gaglepinj.boombox;
 public interface BBSInterface extends android.os.IInterface
