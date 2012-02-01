@@ -9,4 +9,5 @@
     <string name="next_show">Nächste Sendung ab %s:</string>
     <string name="show_preview">Gleich: %s</string>
     <string name="lyrics_click_here">Berühren zur Vollansicht</string>
+    <string name="loading">Informationen werden geladen...</string>
 </resources>

@@ -14,7 +14,7 @@ public class Show {
 		return title;
 	}
 	
-	public String getHTML() {
+	public String getText() {
 		return text;
 	}
 	

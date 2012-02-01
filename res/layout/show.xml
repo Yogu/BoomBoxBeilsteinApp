@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="match_parent"
+    a:layout_height="wrap_content"
+    a:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/box"
+        a:layout_width="fill_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="5dp"
+        a:orientation="vertical" >
+
+        <de.boomboxbeilstein.android.views.MarqueeTextView
+            a:id="@+id/show_header"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:ellipsize="marquee"
+            a:gravity="center_horizontal"
+            a:singleLine="true"
+            a:text="@string/current_show" >
+        </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+        <de.boomboxbeilstein.android.views.MarqueeTextView
+            a:id="@+id/show_title"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginTop="2dp"
+            a:ellipsize="marquee"
+            a:gravity="center_horizontal"
+            a:singleLine="true"
+            a:textStyle="bold" >
+        </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+        <de.boomboxbeilstein.android.views.MarqueeTextView
+            a:id="@+id/show_preview"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginTop="5dp"
+            a:ellipsize="marquee"
+            a:singleLine="true"
+            a:visibility="gone" >
+        </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+        <TextView
+            a:id="@+id/show_description"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginTop="10dp"
+            a:layout_marginBottom="10dp" >
+        </TextView>
+
+        <ImageView
+            a:id="@+id/show_image"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:scaleType="fitCenter"
+            a:minHeight="200dp"
+            a:contentDescription="Cover" />
+    </LinearLayout>
+
+</LinearLayout>

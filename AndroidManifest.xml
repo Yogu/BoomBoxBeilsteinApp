@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:a="http://schemas.android.com/apk/res/android"
     package="de.boomboxbeilstein.android"
-    a:versionCode="1"
-    a:versionName="1.0" >
+    a:versionCode="3"
+    a:versionName="0.3" >
 
     <uses-sdk a:minSdkVersion="8" />
 
@@ -29,6 +29,10 @@
 
                 <category a:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity a:name="de.boomboxbeilstein.android.LyricsActivity" >
+        </activity>
+        <activity a:name="de.boomboxbeilstein.android.ShowActivity" >
         </activity>
     </application>
 

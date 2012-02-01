@@ -3,14 +3,6 @@
     a:layout_width="match_parent"
     a:layout_height="wrap_content"
     a:orientation="vertical" >
-    
-    <TextView
-        a:id="@+id/loading"
-        a:text="@string/loading"
-        a:layout_width="match_parent"
-        a:layout_height="50dp"
-        a:gravity="center"
-        a:textStyle="italic" />
 
     <!-- show -->
 
@@ -19,8 +11,7 @@
         style="@style/clickbox"
         a:layout_width="fill_parent"
         a:layout_height="wrap_content"
-        a:layout_marginBottom="5dp"
-        a:visibility="gone" >
+        a:layout_marginBottom="5dp" >
 
         <ImageView
             a:id="@+id/show_image"
@@ -78,30 +69,54 @@
     <!-- track -->
 
     <LinearLayout
-        a:id="@+id/current_wrap"
         style="@style/clickbox"
         a:layout_width="fill_parent"
         a:layout_height="wrap_content"
         a:layout_marginBottom="5dp"
-        a:orientation="vertical"
-        a:visibility="gone" >
-
-        <de.boomboxbeilstein.android.views.MarqueeTextView
-            a:id="@+id/current_title"
-            a:layout_width="match_parent"
-            a:layout_height="wrap_content"
-            a:layout_marginBottom="10dp"
-            a:gravity="center_horizontal"
-            a:ellipsize="marquee"
-            a:singleLine="true"
-            a:textStyle="bold" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        a:orientation="horizontal" >
 
         <ImageView
             a:id="@+id/current_cover"
             a:layout_width="match_parent"
-            a:layout_height="180dp"
+            a:layout_height="150dp"
+            a:layout_marginRight="5dp"
+            a:layout_weight=".50"
+            a:background="#40000000"
             a:scaleType="centerInside" />
+
+        <LinearLayout
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_weight=".50"
+            a:orientation="vertical" >
+
+            <de.boomboxbeilstein.android.views.MarqueeTextView
+                a:id="@+id/current_artist"
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:layout_marginBottom="5dp"
+                a:ellipsize="marquee"
+                a:singleLine="true" >
+            </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+            <de.boomboxbeilstein.android.views.MarqueeTextView
+                a:id="@+id/current_title"
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:layout_marginBottom="10dp"
+                a:ellipsize="marquee"
+                a:singleLine="true"
+                a:textStyle="bold" >
+            </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+            <de.boomboxbeilstein.android.views.MarqueeTextView
+                a:id="@+id/current_album"
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:ellipsize="marquee"
+                a:singleLine="true" >
+            </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- lyrics -->
@@ -119,8 +134,7 @@
             a:id="@+id/lyrics"
             a:layout_width="fill_parent"
             a:layout_height="wrap_content"
-            a:gravity="center_horizontal"
-            a:maxHeight="80dp" >
+            a:maxHeight="100dp" >
         </TextView>
 
         <TextView
