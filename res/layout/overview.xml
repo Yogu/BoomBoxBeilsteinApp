@@ -2,8 +2,229 @@
 <LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
     a:layout_width="match_parent"
     a:layout_height="match_parent"
+    a:background="@drawable/texturedark"
     a:orientation="vertical" >
-    
-	<TextView a:text="Title" a:id="@+id/title" a:layout_width="fill_parent" a:layout_height="wrap_content"></TextView>
-	<ImageView a:id="@+id/cover" a:layout_width="fill_parent" a:layout_height="wrap_content" />
+
+    <!-- Overall, non-scrolling -->
+
+    <LinearLayout
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:orientation="vertical" >
+
+        <!-- header -->
+
+        <LinearLayout
+            a:layout_width="fill_parent"
+            a:layout_height="wrap_content"
+            a:background="#80000000"
+            a:orientation="horizontal" >
+
+            <ImageButton
+                a:id="@+id/stop_button"
+                a:layout_width="50dp"
+                a:layout_height="50dp"
+                a:layout_margin="5dp"
+                a:background="@drawable/stopbutton"
+                a:contentDescription="@string/stop_button"
+                a:visibility="gone" >
+            </ImageButton>
+
+            <ImageButton
+                a:id="@+id/play_button"
+                a:layout_width="50dp"
+                a:layout_height="50dp"
+                a:layout_margin="5dp"
+                a:background="@drawable/playbutton"
+                a:contentDescription="@string/play_button" >
+            </ImageButton>
+
+            <!-- Workaround for aligning right -->
+
+            <LinearLayout
+                a:layout_width="fill_parent"
+                a:layout_height="wrap_content"
+                a:gravity="right"
+                a:orientation="horizontal" >
+
+                <TextView
+                    a:layout_width="match_parent"
+                    a:layout_height="60dp"
+                    a:layout_gravity="fill_horizontal"
+                    a:layout_marginLeft="60dp"
+                    a:gravity="center"
+                    a:text="@string/app_title"
+                    a:textSize="20dp"
+                    a:textStyle="bold" >
+                </TextView>
+
+                <ImageView
+                    a:layout_width="60dp"
+                    a:layout_height="60dp"
+                    a:layout_marginRight="5dp"
+                    a:contentDescription="Logo"
+                    a:src="@drawable/header_logo" >
+                </ImageView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            a:layout_width="match_parent"
+            a:layout_height="2px"
+            a:background="#EE000000" />
+
+        <!-- content -->
+
+        <ScrollView
+            a:layout_width="match_parent"
+            a:layout_height="match_parent"
+            a:padding="5dp" >
+
+            <LinearLayout
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:orientation="vertical" >
+
+                <!-- show -->
+
+                <RelativeLayout
+                    a:id="@+id/show_wrap"
+                    style="@style/clickbox"
+                    a:layout_width="fill_parent"
+                    a:layout_height="wrap_content"
+                    a:layout_marginBottom="5dp" >
+
+                    <ImageView
+                        a:id="@+id/show_image"
+                        a:layout_width="60dp"
+                        a:layout_height="80dp"
+                        a:layout_marginRight="5dp"
+                        a:scaleType="centerInside" />
+
+                    <de.boomboxbeilstein.android.views.MarqueeTextView
+                        a:id="@+id/show_header"
+                        a:layout_width="match_parent"
+                        a:layout_height="wrap_content"
+                        a:layout_marginBottom="2dp"
+                        a:layout_toRightOf="@id/show_image"
+                        a:ellipsize="marquee"
+                        a:singleLine="true"
+                        a:text="@string/current_show" >
+                    </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+                    <de.boomboxbeilstein.android.views.MarqueeTextView
+                        a:id="@+id/show_title"
+                        a:layout_width="match_parent"
+                        a:layout_height="wrap_content"
+                        a:layout_below="@id/show_header"
+                        a:layout_marginBottom="2dp"
+                        a:layout_toRightOf="@id/show_image"
+                        a:ellipsize="marquee"
+                        a:singleLine="true"
+                        a:textStyle="bold" >
+                    </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+                    <de.boomboxbeilstein.android.views.MarqueeTextView
+                        a:id="@+id/show_description"
+                        a:layout_width="match_parent"
+                        a:layout_height="wrap_content"
+                        a:layout_below="@id/show_title"
+                        a:layout_toRightOf="@id/show_image"
+                        a:ellipsize="marquee"
+                        a:singleLine="true" >
+                    </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+                    <de.boomboxbeilstein.android.views.MarqueeTextView
+                        a:id="@+id/show_preview"
+                        a:layout_width="match_parent"
+                        a:layout_height="wrap_content"
+                        a:layout_below="@id/show_description"
+                        a:layout_marginTop="5dp"
+                        a:layout_toRightOf="@id/show_image"
+                        a:ellipsize="marquee"
+                        a:singleLine="true"
+                        a:visibility="gone" >
+                    </de.boomboxbeilstein.android.views.MarqueeTextView>
+                </RelativeLayout>
+
+                <!-- track -->
+
+                <LinearLayout
+                    style="@style/clickbox"
+                    a:layout_width="fill_parent"
+                    a:layout_height="wrap_content"
+                    a:layout_marginBottom="5dp" >
+
+                    <ImageView
+                        a:id="@+id/current_cover"
+                        a:layout_width="match_parent"
+                        a:layout_height="150dp"
+                        a:layout_marginRight="5dp"
+                        a:layout_weight=".50"
+                        a:background="#40000000"
+                        a:scaleType="centerInside" />
+
+                    <LinearLayout
+                        a:layout_width="match_parent"
+                        a:layout_height="wrap_content"
+                        a:layout_weight=".50"
+                        a:orientation="vertical" >
+
+                        <de.boomboxbeilstein.android.views.MarqueeTextView
+                            a:id="@+id/current_artist"
+                            a:layout_width="match_parent"
+                            a:layout_height="wrap_content"
+                            a:layout_marginBottom="5dp"
+                            a:ellipsize="marquee"
+                            a:singleLine="true" >
+                        </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+                        <de.boomboxbeilstein.android.views.MarqueeTextView
+                            a:id="@+id/current_title"
+                            a:layout_width="match_parent"
+                            a:layout_height="wrap_content"
+                            a:layout_marginBottom="10dp"
+                            a:ellipsize="marquee"
+                            a:singleLine="true"
+                            a:textStyle="bold" >
+                        </de.boomboxbeilstein.android.views.MarqueeTextView>
+
+                        <de.boomboxbeilstein.android.views.MarqueeTextView
+                            a:id="@+id/current_album"
+                            a:layout_width="match_parent"
+                            a:layout_height="wrap_content"
+                            a:ellipsize="marquee"
+                            a:singleLine="true" >
+                        </de.boomboxbeilstein.android.views.MarqueeTextView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- lyrics -->
+
+                <LinearLayout
+                    a:id="@+id/lyrics_wrap"
+                    style="@style/clickbox"
+                    a:layout_width="fill_parent"
+                    a:layout_height="wrap_content"
+                    a:layout_marginBottom="5dp"
+                    a:orientation="vertical"
+                    a:visibility="gone" >
+
+                    <TextView
+                        a:id="@+id/lyrics"
+                        a:layout_width="fill_parent"
+                        a:layout_height="wrap_content"
+                        a:maxHeight="100dp">
+                    </TextView>
+                    <TextView
+                        a:layout_width="fill_parent"
+                        a:layout_height="wrap_content"
+                        a:text="@string/lyrics_click_here"
+                        a:textStyle="italic"
+                        a:gravity="center_horizontal"
+                        a:layout_marginTop="3dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>

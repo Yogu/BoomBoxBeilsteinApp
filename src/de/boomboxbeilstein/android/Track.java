@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox;
+package de.boomboxbeilstein.android;
 
 import org.joda.time.Duration;
 
@@ -11,7 +11,7 @@ public class Track {
 	private String album;
 	private Duration duration;
 	private String coverURL;
-	private String lyrics;
+	private String rawLyrics;
 	
 	public int getID() {
 		return id;
@@ -46,6 +46,6 @@ public class Track {
 	}
 	
 	public String getLyrics() {
-		return lyrics;
+		return rawLyrics;
 	}
 }

@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BoomBoxBeilstein App</string>
+    <string name="app_name">BoomBoxBeilstein</string>
+    
+    <string name="app_title">BoomBoxBeilstein</string>
+    <string name="play_button">Play</string>
+    <string name="stop_button">Stop</string>
+    <string name="current_show">Aktuelle Sendung:</string>
+    <string name="next_show">Nächste Sendung ab %s:</string>
+    <string name="show_preview">Gleich: %s</string>
+    <string name="lyrics_click_here">Berühren zur Vollansicht</string>
 </resources>

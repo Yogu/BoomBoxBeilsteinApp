@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox.utils;
+package de.boomboxbeilstein.android.utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -102,16 +102,16 @@ public class Web {
 	}
 
 	public static Bitmap loadImage(String url, BitmapFactory.Options options) throws IOException {
-		Bitmap bitmap = null;
-		InputStream in = null;
-		in = openHttpConnection(url);
-		bitmap = BitmapFactory.decodeStream(in, null, options);
+		InputStream in = openHttpConnection(url);
+		if (in == null)
+			return null;
+		
+		Bitmap bitmap = BitmapFactory.decodeStream(in, null, options);
 		in.close();
 		return bitmap;
 	}
 
 	private static InputStream openHttpConnection(String url) throws IOException {
-		InputStream inputStream = null;
 		URL theURL = new URL(url);
 		URLConnection conn = theURL.openConnection();
 
@@ -119,9 +119,9 @@ public class Web {
 		httpConn.setRequestMethod("GET");
 		httpConn.connect();
 
-		if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			inputStream = httpConn.getInputStream();
-		}
-		return inputStream;
+		if (httpConn.getResponseCode() == HttpURLConnection.HTTP_OK)
+			return httpConn.getInputStream();
+		else
+			return null;
 	}
 }

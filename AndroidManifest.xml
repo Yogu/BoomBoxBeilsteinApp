@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="de.gaglepinj.boombox"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="8" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+<manifest xmlns:a="http://schemas.android.com/apk/res/android"
+    package="de.boomboxbeilstein.android"
+    a:versionCode="1"
+    a:versionName="1.0" >
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:name=".BoomBoxBeilsteinAppActivity"
-                  android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar">
+    <uses-sdk a:minSdkVersion="8" />
+
+    <uses-permission a:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission a:name="android.permission.VIBRATE" >
+    </uses-permission>
+
+    <application
+        a:icon="@drawable/icon"
+        a:label="@string/app_name"
+        a:theme="@android:style/Theme.NoTitleBar" >
+        <activity
+            a:name=".BoomBoxBeilsteinAppActivity"
+            a:label="@string/app_name" >
         </activity>
-        
-        <service android:name=".BBService"></service>
-        <activity android:name=".MainActivity">
+
+        <service a:name="de.boomboxbeilstein.android.BBService" >
+        </service>
+
+        <activity a:name="de.boomboxbeilstein.android.MainActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action a:name="android.intent.action.MAIN" />
+
+                <category a:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>

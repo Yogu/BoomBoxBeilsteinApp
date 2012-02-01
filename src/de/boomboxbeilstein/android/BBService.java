@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox;
+package de.boomboxbeilstein.android;
 
 import java.io.IOException;
 
@@ -10,12 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnBufferingUpdateListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.DeadObjectException;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 public class BBService extends Service {
 

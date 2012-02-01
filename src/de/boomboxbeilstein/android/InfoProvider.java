@@ -1,19 +1,18 @@
-package de.gaglepinj.boombox;
+package de.boomboxbeilstein.android;
 
 import java.io.IOException;
 import java.util.Random;
 
 import org.apache.http.client.ClientProtocolException;
 import org.joda.time.Duration;
-import org.joda.time.Instant;
 
 import android.util.Log;
 
 import com.google.gson.JsonParseException;
 
-import de.gaglepinj.boombox.utils.Exceptions;
-import de.gaglepinj.boombox.utils.GsonFactory;
-import de.gaglepinj.boombox.utils.Web;
+import de.boomboxbeilstein.android.utils.Exceptions;
+import de.boomboxbeilstein.android.utils.GsonFactory;
+import de.boomboxbeilstein.android.utils.Web;
 
 public class InfoProvider {
 	public static final String URL = "http://quick/~jan/bbb/";
@@ -21,6 +20,7 @@ public class InfoProvider {
 	
 	private static String lastHash = "";
 	private static boolean isRunning = false;
+	private static PlayerInfo lastInfo;
 	private static PlayerInfo currentInfo;
 	private static Runnable updatedHandler;
 	
@@ -41,12 +41,13 @@ public class InfoProvider {
 		if (!isRunning) {
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
-					Instant lastRun = Instant.now();
+					long lastRun = System.currentTimeMillis();
 					while (isRunning) {
 						try {
 							PlayerInfo newInfo = getInfo();
 							if (newInfo.getPlays() == null)
 								newInfo.setPlays(currentInfo.getPlays());
+							lastInfo = currentInfo;
 							currentInfo = newInfo;
 							if (currentInfo.getPlays() != null && currentInfo.getPlays().size() > 0) {
 								Play lastPlay = currentInfo.getPlays().get(currentInfo.getPlays().size() - 1);
@@ -56,8 +57,10 @@ public class InfoProvider {
  							if (updatedHandler != null)
 								updatedHandler.run();
 							
-							Thread.sleep(new Duration(lastRun, Instant.now()).getMillis());
-							lastRun = Instant.now();
+							long sleepTime = UPDATE_INTERVAL.getMillis() - (System.currentTimeMillis() - lastRun);
+							if (sleepTime > 0)
+								Thread.sleep(sleepTime);
+							lastRun = System.currentTimeMillis();
 						} catch (InterruptedException e) {
 							break;
 						} catch (Exception e) {
@@ -77,6 +80,10 @@ public class InfoProvider {
 	
 	public static PlayerInfo getCurrentInfo() {
 		return currentInfo;
+	}
+	
+	public static PlayerInfo getLastInfo() {
+		return lastInfo;
 	}
 	
 	public static void setUpdatedHandler(Runnable handler) {

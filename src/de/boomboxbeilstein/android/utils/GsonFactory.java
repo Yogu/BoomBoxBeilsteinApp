@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox.utils;
+package de.boomboxbeilstein.android.utils;
 
 import java.lang.reflect.Type;
 

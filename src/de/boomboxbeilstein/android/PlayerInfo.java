@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox;
+package de.boomboxbeilstein.android;
 
 import java.util.List;
 

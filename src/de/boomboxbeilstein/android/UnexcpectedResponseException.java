@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox;
+package de.boomboxbeilstein.android;
 
 public class UnexcpectedResponseException extends Exception {
 	private static final long serialVersionUID = 1138919404971273608L;

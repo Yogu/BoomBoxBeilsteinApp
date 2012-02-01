@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox.utils;
+package de.boomboxbeilstein.android.utils;
 
 public class Exceptions {
 	public static String formatException(Throwable e) {

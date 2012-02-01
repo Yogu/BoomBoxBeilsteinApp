@@ -1,4 +1,4 @@
-package de.gaglepinj.boombox;
+package de.boomboxbeilstein.android;
 
 import org.joda.time.Instant;
 
