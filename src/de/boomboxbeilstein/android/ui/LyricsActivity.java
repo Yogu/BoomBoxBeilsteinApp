@@ -1,18 +1,18 @@
-package de.boomboxbeilstein.android;
+package de.boomboxbeilstein.android.ui;
 
+import de.boomboxbeilstein.android.R;
+import de.boomboxbeilstein.android.R.id;
+import de.boomboxbeilstein.android.R.layout;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class LyricsActivity extends Activity {
+public class LyricsActivity extends BaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTheme(android.R.style.Theme_Black_NoTitleBar);
-		setContentView(R.layout.overall);
-		LayoutInflater.from(this).inflate(R.layout.lyrics, (ViewGroup) findViewById(R.id.content));
+		super.onCreate(savedInstanceState, R.layout.lyrics);
 
 		String lyrics = getIntent().getExtras().getString("lyrics");
 		TextView view = (TextView)findViewById(R.id.lyrics);

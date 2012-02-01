@@ -15,7 +15,8 @@ import de.boomboxbeilstein.android.utils.GsonFactory;
 import de.boomboxbeilstein.android.utils.Web;
 
 public class InfoProvider {
-	public static final String URL = "http://quick/~jan/bbb/";
+	//public static final String URL = "http://quick/~jan/bbb/";
+	public static final String URL = "http://yogu.square7.net/bbb/";
 	public static final Duration UPDATE_INTERVAL = Duration.standardSeconds(5);
 	
 	private static String lastHash = "";

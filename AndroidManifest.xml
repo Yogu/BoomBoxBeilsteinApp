@@ -23,16 +23,16 @@
         <service a:name="de.boomboxbeilstein.android.BBService" >
         </service>
 
-        <activity a:name="de.boomboxbeilstein.android.MainActivity" >
+        <activity a:name=".ui.MainActivity" >
             <intent-filter>
                 <action a:name="android.intent.action.MAIN" />
 
                 <category a:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity a:name="de.boomboxbeilstein.android.LyricsActivity" >
+        <activity a:name=".ui.LyricsActivity" >
         </activity>
-        <activity a:name="de.boomboxbeilstein.android.ShowActivity" >
+        <activity a:name=".ui.ShowActivity" >
         </activity>
     </application>
 

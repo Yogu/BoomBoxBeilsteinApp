@@ -1,6 +1,7 @@
-package de.boomboxbeilstein.android;
+package de.boomboxbeilstein.android.ui;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +9,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import de.boomboxbeilstein.android.InfoProvider;
+import de.boomboxbeilstein.android.Play;
+import de.boomboxbeilstein.android.PlayerInfo;
+import de.boomboxbeilstein.android.R;
+import de.boomboxbeilstein.android.Track;
+import de.boomboxbeilstein.android.R.id;
+import de.boomboxbeilstein.android.R.layout;
 import de.boomboxbeilstein.android.utils.Images;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends LiveActivity {
 	private String lastCoverURL = "";
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTheme(android.R.style.Theme_Black_NoTitleBar);
-		setContentView(R.layout.overall);
-		LayoutInflater.from(this).inflate(R.layout.overview, (ViewGroup) findViewById(R.id.content));
-
+		super.onCreate(savedInstanceState, R.layout.overview);
 		initUI();
 		updateUI();
 	}

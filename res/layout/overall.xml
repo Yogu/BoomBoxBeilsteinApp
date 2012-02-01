@@ -20,7 +20,7 @@
             a:background="#80000000"
             a:orientation="horizontal" >
 
-            <ImageButton
+            <ImageButton 
                 a:id="@+id/stop_button"
                 a:layout_width="50dp"
                 a:layout_height="50dp"

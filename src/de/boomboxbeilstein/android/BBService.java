@@ -14,6 +14,8 @@ import android.media.MediaPlayer.OnPreparedListener;
 import android.os.DeadObjectException;
 import android.os.IBinder;
 import android.util.Log;
+import de.boomboxbeilstein.android.ui.MainActivity;
+import de.boomboxbeilstein.android.utils.Exceptions;
 
 public class BBService extends Service {
 
@@ -30,46 +32,19 @@ public class BBService extends Service {
 
 		public void play(String url) throws DeadObjectException {
 			if (!prepared) {
-				notifyBar("Loading stream, please wait while buffering...", "Buffering stream...", false);
+				notifyBar(getResources().getString(R.string.loading_stream));
 				prepareMediaPlayer(url);
 			} else {
 				player.start();
-				notifyBar("Stream is playing", "Stream is playing, click to pause or stop", false);
+				notifyBar(getResources().getString(R.string.playing_stream));
 			}
 		}
-
-		public void skipForward(String url) throws DeadObjectException {
-			if (prepared) {
+		
+		public void stopService() {
+			if (player.isPlaying())
 				player.stop();
-				player = new MediaPlayer();
-				prepareMediaPlayer(url);
-			}
-		}
-
-		public void pause() throws DeadObjectException {
-			if (player.isPlaying()) {
-				player.pause();
-				unnotifyBar();
-			}
-		}
-
-		public void stop() throws DeadObjectException {
-			if (player.isPlaying()) {
-				player.stop();
-				player.release();
-				player = new MediaPlayer();
-
-				prepared = false;
-				unnotifyBar();
-			}
-		}
-
-		public boolean isPlaying() throws DeadObjectException {
-			if (prepared) {
-				return player.isPlaying();
-			}
-
-			return false;
+			stopSelf();
+			unnotifyBar();
 		}
 	};
 
@@ -85,6 +60,11 @@ public class BBService extends Service {
 			player.stop();
 			player = null;
 		}
+		unnotifyBar();
+	}
+
+	public void notifyBar(String tickerTextAndContent) {
+		notifyBar(tickerTextAndContent, tickerTextAndContent, false);
 	}
 
 	public void notifyBar(String tickerText, String content, boolean vibrate) {
@@ -96,9 +76,9 @@ public class BBService extends Service {
 
 		Notification notification = new Notification(icon, tickerText, when);
 
-		CharSequence contentTitle = "Boom Box Beilstein";
+		CharSequence contentTitle = getResources().getString(R.string.app_name);
 
-		Intent notificationIntent = new Intent(this, BoomBoxBeilsteinAppActivity.class);
+		Intent notificationIntent = new Intent(this, MainActivity.class);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 		notification.setLatestEventInfo(getApplicationContext(), contentTitle, content, contentIntent);
@@ -109,7 +89,7 @@ public class BBService extends Service {
 			notification.vibrate = vib;
 		}
 
-		notification.flags |= Notification.FLAG_NO_CLEAR;
+		notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
 
 		mNotificationManager.notify(NOTIFY_ID, notification);
 	}
@@ -126,7 +106,7 @@ public class BBService extends Service {
 		public void onPrepared(MediaPlayer arg0) {
 			prepared = true;
 			player.start();
-			notifyBar("Stream is playing", "Stream is playing, click to pause or stop", true);
+			notifyBar(getResources().getString(R.string.playing_stream));
 		}
 	};
 
@@ -137,11 +117,11 @@ public class BBService extends Service {
 			player.prepareAsync();
 			player.setOnPreparedListener(preparedListener);
 		} catch (IOException e) {
-			Log.d(getClass().getSimpleName(), e.getMessage());
+			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
 		} catch (IllegalArgumentException e) {
-			Log.d(getClass().getSimpleName(), e.getMessage());
+			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
 		} catch (IllegalStateException e) {
-			Log.d(getClass().getSimpleName(), e.getMessage());
+			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
 		}
 	}
 }

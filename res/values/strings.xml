@@ -9,5 +9,8 @@
     <string name="next_show">Nächste Sendung ab %s:</string>
     <string name="show_preview">Gleich: %s</string>
     <string name="lyrics_click_here">Berühren zur Vollansicht</string>
-    <string name="loading">Informationen werden geladen...</string>
+    <string name="loading">Informationen werden geladen …</string>
+    <string name="playback_error">Entschuldigung, beim Abspielen des Streams ist ein Fehler aufgetreten.</string>
+    <string name="loading_stream">Lade Radio-Stream …</string>
+    <string name="playing_stream">Das Radio wird abgespielt</string>
 </resources>
