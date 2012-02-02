@@ -1,12 +1,9 @@
 package de.boomboxbeilstein.android.ui;
 
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import de.boomboxbeilstein.android.InfoProvider;
@@ -14,8 +11,6 @@ import de.boomboxbeilstein.android.Play;
 import de.boomboxbeilstein.android.PlayerInfo;
 import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Track;
-import de.boomboxbeilstein.android.R.id;
-import de.boomboxbeilstein.android.R.layout;
 import de.boomboxbeilstein.android.utils.Images;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 
@@ -65,35 +60,36 @@ public class MainActivity extends LiveActivity {
 		Play play = info.getLastPlay();
 		if (play != null) {
 			Track track = play.getTrack();
-
-			/*
-			 * MarqueeTextView artist = (MarqueeTextView)
-			 * findViewById(R.id.current_artist);
-			 * artist.setTextLazily(track.getArtist()); MarqueeTextView title =
-			 * (MarqueeTextView) findViewById(R.id.current_title);
-			 * title.setTextLazily(track.getTitle()); MarqueeTextView album =
-			 * (MarqueeTextView) findViewById(R.id.current_album);
-			 * album.setTextLazily(track.getAlbum());
-			 */
-			MarqueeTextView title = (MarqueeTextView) findViewById(R.id.current_title);
-			title.setTextLazily(track.getArtist() + " – " + track.getTitle());
-
-			if (!lastCoverURL.equals(track.getCoverURL())) {
-				ImageView cover = (ImageView) findViewById(R.id.current_cover);
-				if (!track.getCoverURL().equals(""))
-					Images.loadImageAsynchronously(track.getCoverURL(), cover, this);
-				else
-					cover.setImageBitmap(null);
-				lastCoverURL = track.getCoverURL();
+			if (track != null) {
+				/*
+				 * MarqueeTextView artist = (MarqueeTextView)
+				 * findViewById(R.id.current_artist);
+				 * artist.setTextLazily(track.getArtist()); MarqueeTextView title =
+				 * (MarqueeTextView) findViewById(R.id.current_title);
+				 * title.setTextLazily(track.getTitle()); MarqueeTextView album =
+				 * (MarqueeTextView) findViewById(R.id.current_album);
+				 * album.setTextLazily(track.getAlbum());
+				 */
+				MarqueeTextView title = (MarqueeTextView) findViewById(R.id.current_title);
+				title.setTextLazily(track.getArtist() + " – " + track.getTitle());
+	
+				if (!lastCoverURL.equals(track.getCoverURL())) {
+					ImageView cover = (ImageView) findViewById(R.id.current_cover);
+					if (!track.getCoverURL().equals(""))
+						Images.loadImageAsynchronously(track.getCoverURL(), cover, this);
+					else
+						cover.setImageBitmap(null);
+					lastCoverURL = track.getCoverURL();
+				}
+	
+				View lyricsWrap = findViewById(R.id.lyrics_wrap);
+				TextView lyrics = (TextView) findViewById(R.id.lyrics);
+				if (!"".equals(track.getLyrics())) {
+					lyrics.setText(track.getLyrics());
+					lyricsWrap.setVisibility(View.VISIBLE);
+				} else
+					lyricsWrap.setVisibility(View.GONE);
 			}
-
-			View lyricsWrap = findViewById(R.id.lyrics_wrap);
-			TextView lyrics = (TextView) findViewById(R.id.lyrics);
-			if (!track.getLyrics().equals("")) {
-				lyrics.setText(track.getLyrics());
-				lyricsWrap.setVisibility(View.VISIBLE);
-			} else
-				lyricsWrap.setVisibility(View.GONE);
 		}
 
 		updateShowUI();

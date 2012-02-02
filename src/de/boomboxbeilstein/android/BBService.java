@@ -11,63 +11,104 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnPreparedListener;
-import android.os.DeadObjectException;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 import de.boomboxbeilstein.android.ui.MainActivity;
 import de.boomboxbeilstein.android.utils.Exceptions;
 
 public class BBService extends Service {
-
 	private MediaPlayer player;
-	private boolean prepared = false;
-
+	private boolean isStopped = false;
+	
+	private static BBService currentService;
+	private static Object lockObj = new Object();
+	
 	private static final int NOTIFY_ID = 1;
-
-	public IBinder onBind(Intent arg0) {
-		return mBinder;
+	
+	public class ServiceBinder extends Binder {
+		public BBService getService() {
+			return BBService.this;
+		}
 	}
 
-	private final BBSInterface.Stub mBinder = new BBSInterface.Stub() {
-
-		public void play(String url) throws DeadObjectException {
-			if (!prepared) {
-				notifyBar(getResources().getString(R.string.loading_stream));
-				prepareMediaPlayer(url);
-			} else {
-				player.start();
-				notifyBar(getResources().getString(R.string.playing_stream));
-			}
-		}
-		
-		public void stopService() {
-			if (player.isPlaying())
-				player.stop();
-			stopSelf();
-			unnotifyBar();
-		}
-	};
+	public IBinder onBind(Intent arg0) {
+		return new ServiceBinder();
+	}
 
 	public void onCreate() {
 		player = new MediaPlayer();
+		currentService = this;
 	}
 
 	public void onStart(Intent intent, int startId) {
+		if (player.isPlaying())
+			return;
+
+		notifyBar(getResources().getString(R.string.loading_stream));
+
+		if (InfoProvider.hasReceivedStreamURL()) {
+			prepareMediaPlayer(InfoProvider.getStreamURL());
+		} else {
+			new Thread(new Runnable() {
+				public void run() {
+					String url = InfoProvider.getStreamURL();
+					if (url != null)
+						prepareMediaPlayer(url);
+					else
+						showError();
+				}
+			}).start();
+		}
 	}
 
 	public void onDestroy() {
-		if (player.isPlaying()) {
-			player.stop();
-			player = null;
-		}
+		isStopped = true;
+		player.stop();
 		unnotifyBar();
+		synchronized (lockObj) {
+			if (currentService == this)
+				currentService = null;
+		}
+	}
+	
+	public static void stop() {
+		synchronized (lockObj) {
+			if (currentService != null && currentService.player != null) {
+				currentService.isStopped = true;
+				currentService.player.stop();
+			}
+		}
 	}
 
-	public void notifyBar(String tickerTextAndContent) {
+	private void prepareMediaPlayer(String soundURL) {
+		try {
+			player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			player.setDataSource(soundURL);
+			player.prepareAsync();
+			player.setOnPreparedListener(new OnPreparedListener() {
+				public void onPrepared(MediaPlayer arg0) {
+					if (!isStopped) {
+						player.start();
+						notifyBar(getResources().getString(R.string.playing_stream));
+					}
+				}
+			});
+		} catch (IOException e) {
+			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
+		} catch (IllegalArgumentException e) {
+			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
+		} catch (IllegalStateException e) {
+			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
+		}
+	}
+
+	private void notifyBar(String tickerTextAndContent) {
 		notifyBar(tickerTextAndContent, tickerTextAndContent, false);
 	}
 
-	public void notifyBar(String tickerText, String content, boolean vibrate) {
+	private void notifyBar(String tickerText, String content, boolean vibrate) {
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
@@ -94,34 +135,14 @@ public class BBService extends Service {
 		mNotificationManager.notify(NOTIFY_ID, notification);
 	}
 
-	public void unnotifyBar() {
+	private void unnotifyBar() {
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
 		mNotificationManager.cancelAll();
 	}
 
-	OnPreparedListener preparedListener = new OnPreparedListener() {
-		@Override
-		public void onPrepared(MediaPlayer arg0) {
-			prepared = true;
-			player.start();
-			notifyBar(getResources().getString(R.string.playing_stream));
-		}
-	};
-
-	public void prepareMediaPlayer(String soundURL) {
-		try {
-			player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-			player.setDataSource(soundURL);
-			player.prepareAsync();
-			player.setOnPreparedListener(preparedListener);
-		} catch (IOException e) {
-			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
-		} catch (IllegalArgumentException e) {
-			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
-		} catch (IllegalStateException e) {
-			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
-		}
+	private void showError() {
+		Toast.makeText(this, getResources().getString(R.string.playback_error), Toast.LENGTH_SHORT);
 	}
 }

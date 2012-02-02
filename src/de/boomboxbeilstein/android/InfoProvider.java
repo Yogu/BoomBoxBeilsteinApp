@@ -16,9 +16,11 @@ import de.boomboxbeilstein.android.utils.Web;
 
 public class InfoProvider {
 	//public static final String URL = "http://quick/~jan/bbb/";
-	public static final String URL = "http://yogu.square7.net/bbb/";
+	//public static final String URL = "http://yogu.square7.net/bbb/";
+	public static final String URL = "http://www.boomboxbeilstein.de/player/";
 	public static final Duration UPDATE_INTERVAL = Duration.standardSeconds(5);
 	
+	private static String streamURL = null;
 	private static String lastHash = "";
 	private static boolean isRunning = false;
 	private static PlayerInfo lastInfo;
@@ -95,5 +97,32 @@ public class InfoProvider {
 		Random random = new Random();
 		
 		return URL + "ajax.php?action=current&hash=" + lastHash + "&foo0=" + random.nextInt(1000000);
+	}
+
+	/**
+	 * Gets the url that is used for streaming
+	 * 
+	 * @throws IOException
+	 * @throws ClientProtocolException
+	 */
+	public static String getStreamURL() {
+		if (streamURL == null) {
+			try {
+				String json = Web.get(URL + "ajax.php?action=info");
+				GeneralInfo info = GsonFactory.createGson().fromJson(json, GeneralInfo.class);
+				streamURL = info.getStreamURL();
+			} catch (ClientProtocolException e) {
+				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
+			} catch (IOException e) {
+				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
+			} catch (JsonParseException e) {
+				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
+			}
+		}
+		return streamURL;
+	}
+	
+	public static boolean hasReceivedStreamURL() {
+		return streamURL != null;
 	}
 }

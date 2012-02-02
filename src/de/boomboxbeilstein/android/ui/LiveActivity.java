@@ -2,7 +2,6 @@ package de.boomboxbeilstein.android.ui;
 
 import org.joda.time.format.DateTimeFormat;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,8 +10,6 @@ import de.boomboxbeilstein.android.PlayerInfo;
 import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Show;
 import de.boomboxbeilstein.android.ShowInfo;
-import de.boomboxbeilstein.android.R.id;
-import de.boomboxbeilstein.android.R.string;
 import de.boomboxbeilstein.android.utils.Images;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 
