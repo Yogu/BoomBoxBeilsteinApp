@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.apache.http.client.ClientProtocolException;
 import org.joda.time.Duration;
+import org.joda.time.Instant;
 
 import android.util.Log;
 
@@ -19,13 +20,18 @@ public class InfoProvider {
 	//public static final String URL = "http://yogu.square7.net/bbb/";
 	public static final String URL = "http://www.boomboxbeilstein.de/player/";
 	public static final Duration UPDATE_INTERVAL = Duration.standardSeconds(5);
+	public static final Duration INFO_EXPIRE = Duration.standardSeconds(30);
+	public static final Duration URL_EXPIRE = Duration.standardMinutes(5);
 	
 	private static String streamURL = null;
+	private static Instant streamURLTime = null;
 	private static String lastHash = "";
 	private static boolean isRunning = false;
 	private static PlayerInfo lastInfo;
 	private static PlayerInfo currentInfo;
+	private static Instant infoTime = null;
 	private static Runnable updatedHandler;
+	private static Runnable serviceUpdatedHandler;
 	
 	public static PlayerInfo getInfo() throws ClientProtocolException, IOException, UnexcpectedResponseException {
 		try {
@@ -40,7 +46,7 @@ public class InfoProvider {
 		}
 	}
 	
-	public static void startUpdating() {
+	private static void startUpdating() {
 		if (!isRunning) {
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
@@ -51,6 +57,7 @@ public class InfoProvider {
 							if (newInfo.getPlays() == null)
 								newInfo.setPlays(currentInfo.getPlays());
 							lastInfo = currentInfo;
+							infoTime = Instant.now();
 							currentInfo = newInfo;
 							if (currentInfo.getPlays() != null && currentInfo.getPlays().size() > 0) {
 								Play lastPlay = currentInfo.getPlays().get(currentInfo.getPlays().size() - 1);
@@ -59,6 +66,8 @@ public class InfoProvider {
 							}
  							if (updatedHandler != null)
 								updatedHandler.run();
+ 							if (serviceUpdatedHandler != null)
+								serviceUpdatedHandler.run();
 							
 							long sleepTime = UPDATE_INTERVAL.getMillis() - (System.currentTimeMillis() - lastRun);
 							if (sleepTime > 0)
@@ -77,12 +86,15 @@ public class InfoProvider {
 		}
 	}
 	
-	public static void stopUpdating() {
+	private static void stopUpdating() {
 		isRunning = false;
 	}
 	
 	public static PlayerInfo getCurrentInfo() {
-		return currentInfo;
+		if (infoTime != null && Instant.now().isBefore(infoTime.plus(INFO_EXPIRE)))
+			return currentInfo;
+		else
+			return null;
 	}
 	
 	public static PlayerInfo getLastInfo() {
@@ -91,6 +103,24 @@ public class InfoProvider {
 	
 	public static void setUpdatedHandler(Runnable handler) {
 		updatedHandler = handler;
+		startUpdating();
+	}
+	
+	public static void clearUpdatedHandler() {
+		updatedHandler = null;
+		if (serviceUpdatedHandler == null)
+			stopUpdating();
+	}
+	
+	public static void setServiceUpdatedHandler(Runnable handler) {
+		serviceUpdatedHandler = handler;
+		startUpdating();
+	}
+	
+	public static void clearServiceUpdatedHandler() {
+		updatedHandler = null;
+		if (updatedHandler == null)
+			stopUpdating();
 	}
 	
 	private static String getCurrentURL() {
@@ -106,11 +136,12 @@ public class InfoProvider {
 	 * @throws ClientProtocolException
 	 */
 	public static String getStreamURL() {
-		if (streamURL == null) {
+		if (streamURL == null || streamURLTime == null || Instant.now().isAfter(streamURLTime.plus(URL_EXPIRE))) {
 			try {
 				String json = Web.get(URL + "ajax.php?action=info");
 				GeneralInfo info = GsonFactory.createGson().fromJson(json, GeneralInfo.class);
 				streamURL = info.getStreamURL();
+				streamURLTime = Instant.now();
 			} catch (ClientProtocolException e) {
 				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
 			} catch (IOException e) {

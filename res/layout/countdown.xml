@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="match_parent"
+    a:layout_height="wrap_content"
+    a:orientation="vertical" >
+
+    <LinearLayout
+        a:id="@+id/wrap"
+        style="@style/box"
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:orientation="vertical"
+        a:visibility="gone" >
+
+        <TextView
+            a:id="@+id/message"
+            a:layout_width="fill_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginTop="20dp"
+            a:layout_marginBottom="5dp"
+            a:gravity="center_horizontal"
+            a:text="Message"
+            a:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            a:id="@+id/details"
+            a:layout_width="fill_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="20dp"
+            a:gravity="center_horizontal"
+            a:text="Details" >
+        </TextView>
+
+        <TextView
+            a:id="@+id/countdown"
+            a:layout_width="fill_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="20dp"
+            a:gravity="center_horizontal"
+            a:typeface="monospace"
+            a:textSize="30dp"
+            a:textStyle="bold"
+            a:textColor="#FFFFFF"
+            a:text="01:35:24" >
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>

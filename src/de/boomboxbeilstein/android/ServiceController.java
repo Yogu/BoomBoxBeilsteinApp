@@ -41,7 +41,7 @@ public class ServiceController {
 		context.stopService(intent);
 	}
 
-	public boolean isPlaying() {
+	public static boolean isPlaying() {
 		return isPlaying;
 	}
 }

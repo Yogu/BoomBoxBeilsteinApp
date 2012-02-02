@@ -56,7 +56,7 @@ public class BaseActivity extends Activity {
 		final ImageButton play = (ImageButton) findViewById(R.id.play_button);
 		final ImageButton stop = (ImageButton) findViewById(R.id.stop_button);
 		
-		if (service.isPlaying()) {
+		if (ServiceController.isPlaying()) {
 			play.setVisibility(View.GONE);
 			stop.setVisibility(View.VISIBLE);
 		} else {

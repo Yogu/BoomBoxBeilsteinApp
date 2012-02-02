@@ -10,7 +10,9 @@
     <string name="show_preview">Gleich: %s</string>
     <string name="lyrics_click_here">Berühren zur Vollansicht</string>
     <string name="loading">Informationen werden geladen …</string>
-    <string name="playback_error">Entschuldigung, beim Abspielen des Streams ist ein Fehler aufgetreten.</string>
+    <string name="playback_error">Fehler beim Abspielen des Streams</string>
     <string name="loading_stream">Lade Radio-Stream …</string>
     <string name="playing_stream">Das Radio wird abgespielt</string>
+    <string name="countdown_details">Um %1$s geht\'s los mit \"%2$s\".</string>
+    <string name="homepage">www.boomboxbeilstein.de</string>
 </resources>

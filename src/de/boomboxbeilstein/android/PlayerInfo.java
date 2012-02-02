@@ -5,6 +5,7 @@ import java.util.List;
 public class PlayerInfo {
 	private ShowInfo showInfo;
 	private List<Play> plays;
+	private Countdown countdown;
 	
 	public ShowInfo getShowInfo() {
 		return showInfo;
@@ -27,5 +28,9 @@ public class PlayerInfo {
 			return plays.get(plays.size() - 1);
 		else
 			return null;
+	}
+	
+	public Countdown getCountdown() {
+		return countdown;
 	}
 }

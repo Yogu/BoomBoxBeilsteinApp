@@ -53,7 +53,7 @@
         <ImageView
             a:id="@+id/show_image"
             a:layout_width="match_parent"
-            a:layout_height="wrap_content"
+            a:layout_height="200dp"
             a:scaleType="fitCenter"
             a:minHeight="200dp"
             a:contentDescription="Cover" />

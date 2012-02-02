@@ -10,23 +10,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 import de.boomboxbeilstein.android.ui.MainActivity;
 import de.boomboxbeilstein.android.utils.Exceptions;
 
 public class BBService extends Service {
 	private MediaPlayer player;
 	private boolean isStopped = false;
-	
+	private String lastHash;
+
 	private static BBService currentService;
 	private static Object lockObj = new Object();
-	
+
 	private static final int NOTIFY_ID = 1;
-	
+
 	public class ServiceBinder extends Binder {
 		public BBService getService() {
 			return BBService.this;
@@ -72,9 +73,10 @@ public class BBService extends Service {
 				currentService = null;
 		}
 	}
-	
+
 	public static void stop() {
 		synchronized (lockObj) {
+			InfoProvider.clearServiceUpdatedHandler();
 			if (currentService != null && currentService.player != null) {
 				currentService.isStopped = true;
 				currentService.player.stop();
@@ -86,15 +88,24 @@ public class BBService extends Service {
 		try {
 			player.setAudioStreamType(AudioManager.STREAM_MUSIC);
 			player.setDataSource(soundURL);
-			player.prepareAsync();
 			player.setOnPreparedListener(new OnPreparedListener() {
 				public void onPrepared(MediaPlayer arg0) {
 					if (!isStopped) {
 						player.start();
 						notifyBar(getResources().getString(R.string.playing_stream));
+
+						startTrackFetcher();
 					}
 				}
 			});
+			player.setOnErrorListener(new OnErrorListener() {
+				public boolean onError(MediaPlayer mp, int what, int extra) {
+					if (!isStopped)
+						showError();
+					return false;
+				}
+			});
+			player.prepareAsync();
 		} catch (IOException e) {
 			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
 		} catch (IllegalArgumentException e) {
@@ -102,6 +113,27 @@ public class BBService extends Service {
 		} catch (IllegalStateException e) {
 			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
 		}
+	}
+
+	private void startTrackFetcher() {
+		InfoProvider.setServiceUpdatedHandler(new Runnable() {
+			public void run() {
+				if (isStopped)
+					return;
+				
+				PlayerInfo info = InfoProvider.getCurrentInfo();
+				if (info != null && info.getLastPlay() != null && info.getLastPlay().getTrack() != null) {
+					Track track = info.getLastPlay().getTrack();
+					if (lastHash == null || !lastHash.equals(track.getHash())) {
+						notifyBar(track.getArtist() + " - " + track.getTitle());
+					}
+				}
+			}
+		});
+	}
+
+	private void showError() {
+		notifyBar(getResources().getString(R.string.playback_error));
 	}
 
 	private void notifyBar(String tickerTextAndContent) {
@@ -140,9 +172,5 @@ public class BBService extends Service {
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
 		mNotificationManager.cancelAll();
-	}
-
-	private void showError() {
-		Toast.makeText(this, getResources().getString(R.string.playback_error), Toast.LENGTH_SHORT);
 	}
 }

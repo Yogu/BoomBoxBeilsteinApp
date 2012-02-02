@@ -1,7 +1,11 @@
 package de.boomboxbeilstein.android.ui;
 
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +15,7 @@ import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Show;
 import de.boomboxbeilstein.android.ShowInfo;
 import de.boomboxbeilstein.android.utils.Images;
+import de.boomboxbeilstein.android.utils.Web;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 
 public class LiveActivity extends BaseActivity {
@@ -18,7 +23,6 @@ public class LiveActivity extends BaseActivity {
 
 	public void onResume() {
 		super.onResume();
-		InfoProvider.startUpdating();
 		InfoProvider.setUpdatedHandler(new Runnable() {
 			public void run() {
 				runOnUiThread(new Runnable() {
@@ -28,11 +32,13 @@ public class LiveActivity extends BaseActivity {
 				});
 			}
 		});
+		loadPreferences();
 	}
 
 	public void onPause() {
 		super.onPause();
-		InfoProvider.stopUpdating();
+		InfoProvider.clearUpdatedHandler();
+		savePreferences();
 	}
 	
 	protected void updateUI() {
@@ -53,7 +59,8 @@ public class LiveActivity extends BaseActivity {
 				showWrap.setVisibility(View.VISIBLE);
 			MarqueeTextView showHeader = (MarqueeTextView)findViewById(R.id.show_header);
 			if (showInfo.isNext()) {
-				String time = show.getStartTime().toString(DateTimeFormat.shortTime());
+				DateTimeFormatter formatter = DateTimeFormat.shortTime().withZone(DateTimeZone.getDefault());
+				String time = show.getStartTime().toString(formatter);
 				showHeader.setTextLazily(getResources().getString(R.string.next_show, time));
 			} else
 				showHeader.setTextLazily(getResources().getString(R.string.current_show));
@@ -85,5 +92,22 @@ public class LiveActivity extends BaseActivity {
 			if (showWrap != null)
 				showWrap.setVisibility(View.GONE);
 		}
+	}
+	
+	private void loadPreferences() {
+    SharedPreferences pref = getPreferences(MODE_PRIVATE);
+    String sessionCookie = pref.getString("sessionCookie", null);
+    if (sessionCookie != null)
+    	Web.setSessionCookie(sessionCookie);
+	}
+	
+	private void savePreferences() {
+    SharedPreferences pref = getPreferences(MODE_PRIVATE);
+    Editor editor = pref.edit();
+    String sessionCookie = Web.getSessionCookie();
+    if (sessionCookie != null) {
+    	editor.putString("sessionCookie", sessionCookie);
+    	editor.commit();
+    }
 	}
 }

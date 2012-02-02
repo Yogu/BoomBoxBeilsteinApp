@@ -3,13 +3,13 @@
     a:layout_width="match_parent"
     a:layout_height="wrap_content"
     a:orientation="vertical" >
-    
+
     <TextView
         a:id="@+id/loading"
-        a:text="@string/loading"
         a:layout_width="match_parent"
         a:layout_height="50dp"
         a:gravity="center"
+        a:text="@string/loading"
         a:textStyle="italic" />
 
     <!-- show -->
@@ -79,7 +79,7 @@
 
     <LinearLayout
         a:id="@+id/current_wrap"
-        style="@style/clickbox"
+        style="@style/box"
         a:layout_width="fill_parent"
         a:layout_height="wrap_content"
         a:layout_marginBottom="5dp"
@@ -91,8 +91,8 @@
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
             a:layout_marginBottom="10dp"
-            a:gravity="center_horizontal"
             a:ellipsize="marquee"
+            a:gravity="center_horizontal"
             a:singleLine="true"
             a:textStyle="bold" >
         </de.boomboxbeilstein.android.views.MarqueeTextView>
@@ -130,6 +130,21 @@
             a:gravity="center_horizontal"
             a:text="@string/lyrics_click_here"
             a:textStyle="italic" />
+    </LinearLayout>
+
+    <LinearLayout
+        a:id="@+id/link"
+        style="@style/clickbox"
+        a:layout_width="fill_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="5dp"
+        a:orientation="vertical" >
+
+        <TextView
+            a:layout_width="fill_parent"
+            a:layout_height="wrap_content"
+            a:gravity="center_horizontal"
+            a:text="@string/homepage" />
     </LinearLayout>
 
 </LinearLayout>

@@ -21,8 +21,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.ClientContext;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -68,7 +70,8 @@ public class Web {
 
 		if (context == null) {
 			context = new BasicHttpContext();
-			cookieStore = new BasicCookieStore();
+			if (cookieStore == null)
+				cookieStore = new BasicCookieStore();
 			context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
 		}
 
@@ -109,6 +112,30 @@ public class Web {
 		Bitmap bitmap = BitmapFactory.decodeStream(in, null, options);
 		in.close();
 		return bitmap;
+	}
+	
+	public static String getSessionCookie() {
+		if (cookieStore != null) {
+			for (Cookie cookie : cookieStore.getCookies()) {
+				if ("session".equals(cookie.getName()))
+					return cookie.getValue();
+			}
+		}
+		return null;
+	}
+	
+	public static void setSessionCookie(String value) {
+		if (cookieStore == null)
+			cookieStore = new BasicCookieStore();
+		else {
+			// Do not add a second cookie
+			String currentCookie = getSessionCookie();
+			if (currentCookie != null)
+				return;
+		}
+		
+		Cookie cookie = new BasicClientCookie("session", value);
+		cookieStore.addCookie(cookie);
 	}
 
 	private static InputStream openHttpConnection(String url) throws IOException {

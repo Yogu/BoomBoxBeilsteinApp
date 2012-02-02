@@ -1,6 +1,7 @@
 package de.boomboxbeilstein.android.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,8 @@ import de.boomboxbeilstein.android.views.MarqueeTextView;
 
 public class MainActivity extends LiveActivity {
 	private String lastCoverURL = "";
+	
+	private static final String HOMEPAGE_URL = "http://www.boomboxbeilstein.de/";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -44,12 +47,26 @@ public class MainActivity extends LiveActivity {
 				startActivity(intent);
 			}
 		});
+
+		findViewById(R.id.link).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(HOMEPAGE_URL));
+				startActivity(intent);
+			}
+		});
 	}
 
 	protected void updateUI() {
 		PlayerInfo info = InfoProvider.getCurrentInfo();
 		if (info == null)
 			return;
+		
+		if (info.getCountdown() != null) {
+			Intent intent = new Intent(this, CountdownActivity.class);
+			intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);;
+			startActivity(intent);
+			return;
+		}
 		
 		View currentWrap = findViewById(R.id.current_wrap);
 		currentWrap.setVisibility(View.VISIBLE);
@@ -61,15 +78,6 @@ public class MainActivity extends LiveActivity {
 		if (play != null) {
 			Track track = play.getTrack();
 			if (track != null) {
-				/*
-				 * MarqueeTextView artist = (MarqueeTextView)
-				 * findViewById(R.id.current_artist);
-				 * artist.setTextLazily(track.getArtist()); MarqueeTextView title =
-				 * (MarqueeTextView) findViewById(R.id.current_title);
-				 * title.setTextLazily(track.getTitle()); MarqueeTextView album =
-				 * (MarqueeTextView) findViewById(R.id.current_album);
-				 * album.setTextLazily(track.getAlbum());
-				 */
 				MarqueeTextView title = (MarqueeTextView) findViewById(R.id.current_title);
 				title.setTextLazily(track.getArtist() + " – " + track.getTitle());
 	

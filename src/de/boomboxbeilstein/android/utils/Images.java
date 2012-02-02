@@ -16,52 +16,49 @@ import android.widget.ImageView;
 public class Images {
 	private static final Duration CACHE_DURATION = Duration.standardMinutes(5);
 	private static Instant lastCacheCheckTime = Instant.now();
-	
+
 	private static class CacheEntry {
 		private Instant lastUseTime;
 		private String url;
 		private Bitmap bitmap;
-		
+
 		public CacheEntry(String url, Bitmap bitmap) {
 			this.url = url;
 			this.bitmap = bitmap;
 			this.lastUseTime = Instant.now();
 		}
-		
+
 		@SuppressWarnings("unused")
 		public String getURL() {
 			return url;
 		}
-		
+
 		public Bitmap getBitmap() {
 			return bitmap;
 		}
-		
+
 		public Instant getLastUseTime() {
 			return lastUseTime;
 		}
-		
+
 		public void markUsed() {
 			lastUseTime = Instant.now();
 		}
 	}
-	
+
 	private static Map<String, CacheEntry> cache = new HashMap<String, CacheEntry>();
-	
-	public static void loadImageAsynchronously(final String url, final ImageView view, final Activity activity) {
+
+	public static void loadImageAsynchronously(final String url, final ImageView view,
+			final Activity activity) {
 		final CacheEntry entry;
 		synchronized (cache) {
 			entry = cache.get(url);
 		}
 		if (entry != null) {
 			entry.markUsed();
-			activity.runOnUiThread(new Runnable() {
-				public void run() {
-					view.setImageBitmap(entry.getBitmap());
-				}
-			});
+			view.setImageBitmap(entry.getBitmap());
 		}
-		
+
 		new Thread(new Runnable() {
 			public void run() {
 				final Bitmap bitmap;
@@ -71,13 +68,13 @@ public class Images {
 					Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
 					return;
 				}
-				
+
 				synchronized (cache) {
 					CacheEntry entry = new CacheEntry(url, bitmap);
 					cache.put(url, entry);
 				}
 				cleanCache();
-				
+
 				activity.runOnUiThread(new Runnable() {
 					public void run() {
 						view.setImageBitmap(bitmap);
@@ -86,11 +83,11 @@ public class Images {
 			}
 		}).start();
 	}
-	
+
 	private static void cleanCache() {
 		if (Instant.now().isBefore(lastCacheCheckTime.plus(CACHE_DURATION)))
 			return;
-		
+
 		synchronized (cache) {
 			Iterator<CacheEntry> iterator = cache.values().iterator();
 			while (iterator.hasNext()) {
