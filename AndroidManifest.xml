@@ -2,7 +2,7 @@
 <manifest xmlns:a="http://schemas.android.com/apk/res/android"
     package="de.boomboxbeilstein.android"
     a:versionCode="6"
-    a:versionName="0.9" >
+    a:versionName="1.0" >
 
     <uses-sdk a:minSdkVersion="8" />
 
