@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">BoomBoxBeilstein</string>
-    
     <string name="app_title">BoomBoxBeilstein</string>
     <string name="play_button">Play</string>
     <string name="stop_button">Stop</string>
@@ -15,8 +15,13 @@
     <string name="playing_stream">Das Radio wird abgespielt</string>
     <string name="countdown_details">Um %1$s geht\'s los mit \"%2$s\".</string>
     <string name="homepage">www.boomboxbeilstein.de</string>
-    
+    <string name="update_found_ticker">BoomBoxBeilstein: Update verfügbar</string>
+    <string name="update_found">Update verfügbar. Tippen, um es zu installieren</string>
+    <string name="update_title">App-Aktualisierung verfügbar</string>
+    <string name="update_desc">Die aktuelle Version der BoomBoxBeilstein-App wurde heruntergeladen und kann nun installiert werden.\n\nWenn Sie auf \""Update installieren\" klicken, werden Sie möglicherweise gefragt, ob Anwendungen aus unsicheren Quellen installiert werden sollen. Aktivieren Sie in diesem Fall bitte diese Option.</string>
+    <string name="install_update">Update installieren</string>
     <string name="image_cover">Cover des aktuellen Titels</string>
     <string name="image_logo">Logo</string>
     <string name="image_show">Bild zur Sendung</string>
+
 </resources>

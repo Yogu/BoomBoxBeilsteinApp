@@ -12,6 +12,7 @@ import de.boomboxbeilstein.android.Play;
 import de.boomboxbeilstein.android.PlayerInfo;
 import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Track;
+import de.boomboxbeilstein.android.UpdateService;
 import de.boomboxbeilstein.android.utils.Images;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 

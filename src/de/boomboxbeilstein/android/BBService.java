@@ -49,12 +49,17 @@ public class BBService extends Service {
 
 		notifyBar(getResources().getString(R.string.loading_stream));
 
-		if (InfoProvider.hasReceivedStreamURL()) {
-			prepareMediaPlayer(InfoProvider.getStreamURL());
+		if (InfoProvider.hasReceivedGeneralInfo()) {
+			GeneralInfo info = InfoProvider.getGeneralInfo();
+			if (info != null && info.getStreamURL() != null)
+				prepareMediaPlayer(InfoProvider.getGeneralInfo().getStreamURL());
+			else
+				showError();
 		} else {
 			new Thread(new Runnable() {
 				public void run() {
-					String url = InfoProvider.getStreamURL();
+					GeneralInfo info = InfoProvider.getGeneralInfo();
+					String url = info != null ? info.getStreamURL() : null;
 					if (url != null)
 						prepareMediaPlayer(url);
 					else
@@ -121,6 +126,8 @@ public class BBService extends Service {
 				if (isStopped)
 					return;
 				
+				UpdateService.runIfNeccessary(BBService.this);
+				
 				PlayerInfo info = InfoProvider.getCurrentInfo();
 				if (info != null && info.getLastPlay() != null && info.getLastPlay().getTrack() != null) {
 					Track track = info.getLastPlay().getTrack();
@@ -152,8 +159,13 @@ public class BBService extends Service {
 		CharSequence contentTitle = getResources().getString(R.string.app_name);
 
 		Intent notificationIntent = new Intent(this, MainActivity.class);
+		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
 			Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		if (contentIntent == null) {
+			Log.e(getClass().getSimpleName(), "PendingIntent.getActivity() returned null");
+			return;
+		}
 
 		notification.setLatestEventInfo(getApplicationContext(), contentTitle, content, contentIntent);
 

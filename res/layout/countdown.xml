@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ViewGroup xmlns:a="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:a="http://schemas.android.com/apk/res/android"
     a:layout_width="match_parent"
     a:layout_height="wrap_content" >
 
@@ -42,4 +42,4 @@
         </TextView>
     </LinearLayout>
 
-</ViewGroup>
+</RelativeLayout>

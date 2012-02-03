@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.ServiceController;
+import de.boomboxbeilstein.android.UpdateService;
 
 public class BaseActivity extends Activity {
 	private ServiceController service;
@@ -29,6 +30,7 @@ public class BaseActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		updateServiceUI();
+		UpdateService.runIfNeccessary(this);
 	}
 	
 	private void initUI() {

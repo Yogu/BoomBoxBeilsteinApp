@@ -6,6 +6,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +25,13 @@ public class LiveActivity extends BaseActivity {
 	private static final DateTimeFormatter timeFormat =
 		DateTimeFormat.shortTime()
 			.withZone(DateTimeZone.getDefault());
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState, int layoutID) {
+		super.onCreate(savedInstanceState, layoutID);
+		// Do it before any call to Web class
+		Web.loadCookies(this);
+	}
 
 	public void onResume() {
 		super.onResume();
@@ -36,14 +44,13 @@ public class LiveActivity extends BaseActivity {
 				});
 			}
 		});
-		loadPreferences();
 		updateUI();
 	}
 
 	public void onPause() {
 		super.onPause();
 		InfoProvider.clearUpdatedHandler();
-		savePreferences();
+		Web.saveCookies(this);
 	}
 	
 	protected void updateUI() {
@@ -96,22 +103,5 @@ public class LiveActivity extends BaseActivity {
 			if (showWrap != null)
 				showWrap.setVisibility(View.GONE);
 		}
-	}
-	
-	private void loadPreferences() {
-    SharedPreferences pref = getPreferences(MODE_PRIVATE);
-    String sessionCookie = pref.getString("sessionCookie", null);
-    if (sessionCookie != null)
-    	Web.setSessionCookie(sessionCookie);
-	}
-	
-	private void savePreferences() {
-    SharedPreferences pref = getPreferences(MODE_PRIVATE);
-    Editor editor = pref.edit();
-    String sessionCookie = Web.getSessionCookie();
-    if (sessionCookie != null) {
-    	editor.putString("sessionCookie", sessionCookie);
-    	editor.commit();
-    }
 	}
 }

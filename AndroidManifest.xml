@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:a="http://schemas.android.com/apk/res/android"
     package="de.boomboxbeilstein.android"
-    a:versionCode="5"
-    a:versionName="0.5" >
+    a:versionCode="6"
+    a:versionName="0.9" >
 
     <uses-sdk a:minSdkVersion="8" />
 
     <uses-permission a:name="android.permission.INTERNET" >
-    </uses-permission>
-    <uses-permission a:name="android.permission.VIBRATE" >
     </uses-permission>
 
     <application
@@ -23,6 +21,9 @@
         <service a:name="de.boomboxbeilstein.android.BBService" >
         </service>
 
+        <service a:name="de.boomboxbeilstein.android.UpdateService" >
+        </service>
+
         <activity a:name=".ui.MainActivity" >
             <intent-filter>
                 <action a:name="android.intent.action.MAIN" />
@@ -35,6 +36,8 @@
         <activity a:name=".ui.ShowActivity" >
         </activity>
         <activity a:name=".ui.CountdownActivity" >
+        </activity>
+        <activity a:name=".ui.UpdateActivity" >
         </activity>
     </application>
 
