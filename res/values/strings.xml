@@ -15,4 +15,8 @@
     <string name="playing_stream">Das Radio wird abgespielt</string>
     <string name="countdown_details">Um %1$s geht\'s los mit \"%2$s\".</string>
     <string name="homepage">www.boomboxbeilstein.de</string>
+    
+    <string name="image_cover">Cover des aktuellen Titels</string>
+    <string name="image_logo">Logo</string>
+    <string name="image_show">Bild zur Sendung</string>
 </resources>

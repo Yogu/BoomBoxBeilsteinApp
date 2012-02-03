@@ -5,82 +5,74 @@
     a:background="@drawable/background"
     a:orientation="vertical" >
 
-    <!-- Overall, non-scrolling -->
+    <!-- header -->
 
     <LinearLayout
-        a:layout_width="match_parent"
+        a:layout_width="fill_parent"
         a:layout_height="wrap_content"
-        a:orientation="vertical" >
+        a:background="#80000000"
+        a:orientation="horizontal" >
 
-        <!-- header -->
+        <ImageButton
+            a:id="@+id/stop_button"
+            a:layout_width="50dp"
+            a:layout_height="50dp"
+            a:layout_margin="5dp"
+            a:background="@drawable/stopbutton"
+            a:contentDescription="@string/stop_button"
+            a:visibility="gone" >
+        </ImageButton>
+
+        <ImageButton
+            a:id="@+id/play_button"
+            a:layout_width="50dp"
+            a:layout_height="50dp"
+            a:layout_margin="5dp"
+            a:background="@drawable/playbutton"
+            a:contentDescription="@string/play_button" >
+        </ImageButton>
+
+        <!-- Workaround for aligning right -->
 
         <LinearLayout
             a:layout_width="fill_parent"
             a:layout_height="wrap_content"
-            a:background="#80000000"
+            a:gravity="right"
             a:orientation="horizontal" >
 
-            <ImageButton 
-                a:id="@+id/stop_button"
-                a:layout_width="50dp"
-                a:layout_height="50dp"
-                a:layout_margin="5dp"
-                a:background="@drawable/stopbutton"
-                a:contentDescription="@string/stop_button"
-                a:visibility="gone" >
-            </ImageButton>
+            <TextView
+                a:layout_width="match_parent"
+                a:layout_height="60dp"
+                a:layout_gravity="fill_horizontal"
+                a:layout_marginLeft="60dp"
+                a:gravity="center"
+                a:text="@string/app_title"
+                a:textSize="20dp"
+                a:textStyle="bold" >
+            </TextView>
 
-            <ImageButton
-                a:id="@+id/play_button"
-                a:layout_width="50dp"
-                a:layout_height="50dp"
-                a:layout_margin="5dp"
-                a:background="@drawable/playbutton"
-                a:contentDescription="@string/play_button" >
-            </ImageButton>
-
-            <!-- Workaround for aligning right -->
-
-            <LinearLayout
-                a:layout_width="fill_parent"
-                a:layout_height="wrap_content"
-                a:gravity="right"
-                a:orientation="horizontal" >
-
-                <TextView
-                    a:layout_width="match_parent"
-                    a:layout_height="60dp"
-                    a:layout_gravity="fill_horizontal"
-                    a:layout_marginLeft="60dp"
-                    a:gravity="center"
-                    a:text="@string/app_title"
-                    a:textSize="20dp"
-                    a:textStyle="bold" >
-                </TextView>
-
-                <ImageView
-                    a:layout_width="60dp"
-                    a:layout_height="60dp"
-                    a:layout_marginRight="5dp"
-                    a:contentDescription="Logo"
-                    a:src="@drawable/header_logo" >
-                </ImageView>
-            </LinearLayout>
+            <ImageView
+                a:layout_width="60dp"
+                a:layout_height="60dp"
+                a:layout_marginRight="5dp"
+                a:contentDescription="@string/image_logo"
+                a:src="@drawable/header_logo" >
+            </ImageView>
         </LinearLayout>
-
-        <TextView
-            a:layout_width="match_parent"
-            a:layout_height="2px"
-            a:background="#EE000000" />
-
-        <!-- content -->
-
-        <ScrollView
-            a:id="@+id/content"
-            a:layout_width="match_parent"
-            a:layout_height="match_parent"
-            a:padding="5dp" >
-        </ScrollView>
     </LinearLayout>
+
+    <TextView
+        a:layout_width="match_parent"
+        a:layout_height="1dp"
+        a:background="#EE000000" />
+
+    <!-- content -->
+
+    <ScrollView
+        a:id="@+id/content"
+        a:layout_width="match_parent"
+        a:layout_height="match_parent"
+        a:padding="5dp" >
+    </ScrollView>
 
 </LinearLayout>

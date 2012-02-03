@@ -25,6 +25,20 @@ public class CountdownActivity extends LiveActivity {
 	private Handler timer = new Handler();
 	private ServiceController serviceController;
 	
+	private static final PeriodFormatter countdownFormat = new PeriodFormatterBuilder()
+		.minimumPrintedDigits(2)
+	  .printZeroAlways()
+	  .appendHours()
+	  .appendLiteral(":")
+	  .appendMinutes()
+	  .appendLiteral(":")
+	  .appendSeconds()
+	  .toFormatter();
+	
+	private static final DateTimeFormatter showTimeFormat =
+		DateTimeFormat.shortTime()
+			.withZone(DateTimeZone.getDefault());
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.countdown);
@@ -40,50 +54,50 @@ public class CountdownActivity extends LiveActivity {
 	}
 	
 	public void onResume() {
-		super.onResume();
-		updateTimerUI.run();
+		super.onResume(); // calls updateUI()
+		updateCallback.run();
 	}
 	
 	public void onPause() {
 		super.onPause();
-		timer.removeCallbacks(updateTimerUI);
+		timer.removeCallbacks(updateCallback);
+		
 	}
 	
-	private Runnable updateTimerUI = new Runnable() {
+	private Runnable updateCallback = new Runnable() {
 		public void run() {
-			PlayerInfo info = InfoProvider.getCurrentInfo();
-			if (info == null)
-				return;
-			Show show = info.getShowInfo() != null ? info.getShowInfo().getShow() : null;
-			if (show == null)
-				return;
-			Instant time = show.getStartTime();
-			if (time == null)
-				return;
-			
-			if (Instant.now().isAfter(time))
-				goToMain();
-			else {
-				Duration remaining = new Duration(Instant.now(), time);
-				
-	
-				PeriodFormatter timeFormat = new PeriodFormatterBuilder()
-					.minimumPrintedDigits(2)
-			    .printZeroAlways()
-			    .appendHours()
-			    .appendLiteral(":")
-			    .appendMinutes()
-			    .appendLiteral(":")
-			    .appendSeconds()
-			    .toFormatter();
-			
-				TextView countdown = (TextView) findViewById(R.id.countdown);
-				countdown.setText(remaining.toPeriod().toString(timeFormat));
+			try {
+				try {
+					updateTimerUI();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} finally {
+				timer.postAtTime(updateCallback, SystemClock.uptimeMillis() + 200);
 			}
-
-			timer.postAtTime(updateTimerUI, SystemClock.uptimeMillis() + 200);
 		}
 	};
+	
+	private void updateTimerUI() {
+		PlayerInfo info = InfoProvider.getCurrentInfo();
+		if (info == null)
+			return;
+		Show show = info.getShowInfo() != null ? info.getShowInfo().getShow() : null;
+		if (show == null)
+			return;
+		Instant time = show.getStartTime();
+		if (time == null)
+			return;
+		
+		if (Instant.now().isAfter(time))
+			goToMain();
+		else {
+			Duration remaining = new Duration(Instant.now(), time);
+		
+			TextView countdown = (TextView) findViewById(R.id.countdown);
+			countdown.setText(remaining.toPeriod().toString(countdownFormat));
+		}
+	}
 
 	@Override
 	protected void updateUI() {
@@ -103,8 +117,7 @@ public class CountdownActivity extends LiveActivity {
 			message.setText(info.getCountdown().getMessage());
 			
 			TextView details = (TextView) findViewById(R.id.details);
-			DateTimeFormatter formatter = DateTimeFormat.shortTime().withZone(DateTimeZone.getDefault());
-			String time = show.getStartTime().toString(formatter);
+			String time = show.getStartTime().toString(showTimeFormat);
 			String d = getResources().getString(R.string.countdown_details, time, show.getTitle());
 			details.setText(d);
 		}

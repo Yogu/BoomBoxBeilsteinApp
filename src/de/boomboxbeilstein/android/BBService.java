@@ -152,7 +152,8 @@ public class BBService extends Service {
 		CharSequence contentTitle = getResources().getString(R.string.app_name);
 
 		Intent notificationIntent = new Intent(this, MainActivity.class);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+			Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 		notification.setLatestEventInfo(getApplicationContext(), contentTitle, content, contentIntent);
 

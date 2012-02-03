@@ -25,7 +25,6 @@ public class MainActivity extends LiveActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.overview);
 		initUI();
-		updateUI();
 	}
 
 	private void initUI() {
@@ -63,8 +62,9 @@ public class MainActivity extends LiveActivity {
 		
 		if (info.getCountdown() != null) {
 			Intent intent = new Intent(this, CountdownActivity.class);
-			intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);;
+			intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(intent);
+			finish();
 			return;
 		}
 		

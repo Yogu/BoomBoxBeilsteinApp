@@ -9,7 +9,6 @@ public class ShowActivity extends LiveActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.show);
-		updateUI();
 	}
 
 	@Override

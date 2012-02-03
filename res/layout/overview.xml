@@ -27,6 +27,7 @@
             a:layout_width="60dp"
             a:layout_height="80dp"
             a:layout_marginRight="5dp"
+            a:contentDescription="@string/image_show"
             a:scaleType="centerInside" />
 
         <de.boomboxbeilstein.android.views.MarqueeTextView
@@ -101,6 +102,7 @@
             a:id="@+id/current_cover"
             a:layout_width="match_parent"
             a:layout_height="180dp"
+            a:contentDescription="@string/image_cover"
             a:scaleType="centerInside" />
     </LinearLayout>
 

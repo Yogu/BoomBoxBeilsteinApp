@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+<ViewGroup xmlns:a="http://schemas.android.com/apk/res/android"
     a:layout_width="match_parent"
     a:layout_height="wrap_content"
     a:orientation="vertical" >
@@ -56,7 +56,7 @@
             a:layout_height="200dp"
             a:scaleType="fitCenter"
             a:minHeight="200dp"
-            a:contentDescription="Cover" />
+            a:contentDescription="@string/image_show" />
     </LinearLayout>
 
-</LinearLayout>
+</ViewGroup>

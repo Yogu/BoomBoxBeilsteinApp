@@ -20,6 +20,10 @@ import de.boomboxbeilstein.android.views.MarqueeTextView;
 
 public class LiveActivity extends BaseActivity {
 	private String lastShowImagerURL = "";
+	
+	private static final DateTimeFormatter timeFormat =
+		DateTimeFormat.shortTime()
+			.withZone(DateTimeZone.getDefault());
 
 	public void onResume() {
 		super.onResume();
@@ -33,6 +37,7 @@ public class LiveActivity extends BaseActivity {
 			}
 		});
 		loadPreferences();
+		updateUI();
 	}
 
 	public void onPause() {
@@ -59,8 +64,7 @@ public class LiveActivity extends BaseActivity {
 				showWrap.setVisibility(View.VISIBLE);
 			MarqueeTextView showHeader = (MarqueeTextView)findViewById(R.id.show_header);
 			if (showInfo.isNext()) {
-				DateTimeFormatter formatter = DateTimeFormat.shortTime().withZone(DateTimeZone.getDefault());
-				String time = show.getStartTime().toString(formatter);
+				String time = show.getStartTime().toString(timeFormat);
 				showHeader.setTextLazily(getResources().getString(R.string.next_show, time));
 			} else
 				showHeader.setTextLazily(getResources().getString(R.string.current_show));
