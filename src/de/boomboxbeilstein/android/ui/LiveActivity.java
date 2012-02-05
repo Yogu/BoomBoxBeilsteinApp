@@ -83,7 +83,7 @@ public class LiveActivity extends BaseActivity {
 			else
 				showDescription.setText(show.getText());
 			
-			if (lastShowImagerURL == null || lastShowImagerURL.equals(show.getImageURL())) {
+			if (lastShowImagerURL == null || !lastShowImagerURL.equals(show.getImageURL())) {
 				ImageView showImage = (ImageView) findViewById(R.id.show_image);
 				if (show.getImageURL() != null && !show.getImageURL().equals(""))
 					Images.loadImageAsynchronously(show.getImageURL(), showImage, this);

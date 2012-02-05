@@ -12,6 +12,33 @@
         a:text="@string/loading"
         a:textStyle="italic" />
 
+    <!-- update -->
+
+    <LinearLayout
+        a:id="@+id/update"
+        style="@style/important_clickbox"
+        a:layout_width="fill_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="5dp"
+        a:orientation="vertical"
+        a:visibility="gone" >
+
+        <TextView
+            a:text="@string/update_notice"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:textStyle="bold"
+            a:gravity="center_horizontal" >
+        </TextView>
+
+        <TextView
+            a:text="@string/update_notice_click"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:gravity="center_horizontal" >
+        </TextView>
+    </LinearLayout>
+
     <!-- show -->
 
     <RelativeLayout

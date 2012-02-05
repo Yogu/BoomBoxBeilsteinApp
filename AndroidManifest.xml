@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:a="http://schemas.android.com/apk/res/android"
     package="de.boomboxbeilstein.android"
-    a:versionCode="6"
-    a:versionName="1.0" >
+    a:versionCode="7"
+    a:versionName="1.1" >
 
     <uses-sdk a:minSdkVersion="8" />
 

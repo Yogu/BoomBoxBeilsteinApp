@@ -1,6 +1,7 @@
 package de.boomboxbeilstein.android.ui;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +12,7 @@ import de.boomboxbeilstein.android.Play;
 import de.boomboxbeilstein.android.PlayerInfo;
 import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Track;
+import de.boomboxbeilstein.android.UpdateService;
 import de.boomboxbeilstein.android.utils.Images;
 import de.boomboxbeilstein.android.utils.Strings;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
@@ -49,7 +51,14 @@ public class MainActivity extends LiveActivity {
 
 		findViewById(R.id.link).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = null;//new Intent(Intent.ACTION_VIEW, Uri.parse(HOMEPAGE_URL));
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(HOMEPAGE_URL));
+				startActivity(intent);
+			}
+		});
+
+		findViewById(R.id.update).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
 				startActivity(intent);
 			}
 		});
@@ -98,6 +107,11 @@ public class MainActivity extends LiveActivity {
 				} else
 					lyricsWrap.setVisibility(View.GONE);
 			}
+		}
+		
+		if (UpdateService.isUpdateAvailable()) {
+			View update = findViewById(R.id.update);
+			update.setVisibility(View.VISIBLE);
 		}
 
 		updateShowUI();

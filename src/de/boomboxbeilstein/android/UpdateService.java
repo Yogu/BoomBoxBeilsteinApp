@@ -27,6 +27,8 @@ public class UpdateService extends Service {
 	private static String downloadURL;
 	private static final int NOTIFY_ID = 2;
 	private static Instant lastCheckTime;
+	
+	private static boolean isUpdateAvailable;
 
 	public class ServiceBinder extends Binder {
 		public UpdateService getService() {
@@ -45,6 +47,10 @@ public class UpdateService extends Service {
 			intent.setClassName(UpdateService.class.getPackage().getName(), UpdateService.class.getName());
 			context.startService(intent);
 		}
+	}
+	
+	public static boolean isUpdateAvailable() {
+		return isUpdateAvailable;
 	}
 
 	@Override
@@ -67,6 +73,7 @@ public class UpdateService extends Service {
 					e.printStackTrace();
 				}
 
+				isUpdateAvailable = true;
 				notifyBar();
 			}
 		}).start();

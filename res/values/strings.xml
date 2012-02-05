@@ -18,6 +18,8 @@
     <string name="update_found_ticker">BoomBoxBeilstein: Update verfügbar</string>
     <string name="update_found">Update verfügbar. Tippen, um es zu installieren</string>
     <string name="update_title">App-Aktualisierung verfügbar</string>
+    <string name="update_notice">Update verfügbar</string>
+    <string name="update_notice_click">Antippen, um es zu installieren</string>
     <string name="update_desc">Die aktuelle Version der BoomBoxBeilstein-App wurde heruntergeladen und kann nun installiert werden.\n\nWenn Sie auf \""Update installieren\" klicken, werden Sie möglicherweise gefragt, ob Anwendungen aus unsicheren Quellen installiert werden sollen. Aktivieren Sie in diesem Fall bitte diese Option.</string>
     <string name="install_update">Update installieren</string>
     <string name="image_cover">Cover des aktuellen Titels</string>
@@ -25,7 +27,7 @@
     <string name="image_show">Bild zur Sendung</string>
 
 	<string name="error_title">Anwendungsfehler</string>
-	<string name="error_desc">Sie haben gerade einen Fehler in dieser Anwendung entdeckt.\n\nUm den Fehler beheben zu können, benötigen wir einen automatisch generierten Fehlerbericht. Wir wären Ihnen dankbar, wenn Sie diesen über die unten stehende Schaltfläche abschicken würden. Der Bericht enthält keine personen- oder gerätebezogenen Daten.\n\nWir bitten, die Unannehmlichkeit zu entschuldigen.</string>
+	<string name="error_desc">Sie haben einen Fehler in dieser Anwendung entdeckt.\n\nUm den Fehler beheben zu können, benötigen wir einen automatisch generierten Fehlerbericht. Wir wären Ihnen dankbar, wenn Sie diesen über die unten stehende Schaltfläche abschicken würden. Der Bericht enthält keine personen- oder gerätebezogenen Daten.\n\nWir bitten, die Unannehmlichkeit zu entschuldigen.</string>
 	<string name="error_send">Fehlerbericht senden</string>
 	<string name="error_close">Nicht senden</string>
 	<string name="error_comment">Kommentare, evlt. E-Mail-Adresse (optional):</string>
