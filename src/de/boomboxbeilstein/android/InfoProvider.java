@@ -12,18 +12,19 @@ import android.util.Log;
 import com.google.gson.JsonParseException;
 
 import de.boomboxbeilstein.android.utils.AppInfo;
-import de.boomboxbeilstein.android.utils.Exceptions;
 import de.boomboxbeilstein.android.utils.GsonFactory;
 import de.boomboxbeilstein.android.utils.Web;
 
 public class InfoProvider {
-	// public static final String URL = "http://quick/~jan/bbb/";
+	//public static final String URL = "http://quick/~jan/bbb/";
 	// public static final String URL = "http://yogu.square7.net/bbb/";
 	public static final String URL = "http://www.boomboxbeilstein.de/player/";
 	public static final Duration UPDATE_INTERVAL = Duration.standardSeconds(5);
 	public static final Duration INFO_EXPIRE = Duration.standardSeconds(30);
 	public static final Duration GENERAL_EXPIRE = Duration.standardMinutes(5);
-
+	
+	private static final String TAG = "InfoProvider";
+	
 	private static GeneralInfo generalInfo = null;
 	private static Instant generalTime = null;
 	private static String lastHash = "";
@@ -55,20 +56,23 @@ public class InfoProvider {
 					while (isRunning) {
 						try {
 							PlayerInfo newInfo = getInfo();
-							if (newInfo.getPlays() == null)
-								newInfo.setPlays(currentInfo.getPlays());
-							lastInfo = currentInfo;
-							infoTime = Instant.now();
-							currentInfo = newInfo;
-							if (currentInfo.getPlays() != null && currentInfo.getPlays().size() > 0) {
-								Play lastPlay = currentInfo.getPlays().get(currentInfo.getPlays().size() - 1);
-								if (lastPlay != null && lastPlay.getTrack() != null)
-									lastHash = lastPlay.getTrack().getHash();
-							}
-							if (updatedHandler != null)
-								updatedHandler.run();
-							if (serviceUpdatedHandler != null)
-								serviceUpdatedHandler.run();
+							if (newInfo != null) {
+								if (newInfo.getPlays() == null && currentInfo != null)
+									newInfo.setPlays(currentInfo.getPlays());
+								lastInfo = currentInfo;
+								infoTime = Instant.now();
+								currentInfo = newInfo;
+								if (currentInfo.getPlays() != null && currentInfo.getPlays().size() > 0) {
+									Play lastPlay = currentInfo.getPlays().get(currentInfo.getPlays().size() - 1);
+									if (lastPlay != null && lastPlay.getTrack() != null)
+										lastHash = lastPlay.getTrack().getHash();
+								}
+								if (updatedHandler != null)
+									updatedHandler.run();
+								if (serviceUpdatedHandler != null)
+									serviceUpdatedHandler.run();
+							} else
+								Log.e(TAG, "Invalid player info");
 
 							long sleepTime = UPDATE_INTERVAL.getMillis() - (System.currentTimeMillis() - lastRun);
 							if (sleepTime > 0)
@@ -77,7 +81,8 @@ public class InfoProvider {
 						} catch (InterruptedException e) {
 							break;
 						} catch (Exception e) {
-							Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
+							Log.e(TAG, "Error fetching player info");
+							e.printStackTrace();
 						}
 					}
 				}
@@ -139,11 +144,14 @@ public class InfoProvider {
 				generalInfo = GsonFactory.createGson().fromJson(json, GeneralInfo.class);
 				generalTime = Instant.now();
 			} catch (ClientProtocolException e) {
-				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
+				Log.e(TAG, "Unable to fetch general info");
+				e.printStackTrace();
 			} catch (IOException e) {
-				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
+				Log.e(TAG, "Unable to fetch general info");
+				e.printStackTrace();
 			} catch (JsonParseException e) {
-				Log.e(ServiceController.class.getSimpleName(), Exceptions.formatException(e));
+				Log.e(TAG, "Unable to fetch general info");
+				e.printStackTrace();
 			}
 		}
 		return generalInfo;

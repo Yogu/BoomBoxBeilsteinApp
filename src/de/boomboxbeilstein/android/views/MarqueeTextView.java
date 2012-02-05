@@ -43,6 +43,9 @@ public class MarqueeTextView extends TextView {
 	}
 	
 	public void setTextLazily(CharSequence newValue) {
+		if (newValue == null)
+			newValue = "";
+		
 		if (!newValue.equals(getText()))
 			setText(newValue);
 	}

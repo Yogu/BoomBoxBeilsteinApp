@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="match_parent"
+    a:layout_height="match_parent" >
+
+    <LinearLayout
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:orientation="vertical"
+        a:padding="10dp" >
+
+        <TextView
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="15dp"
+            a:text="@string/error_title"
+            a:textSize="20dp"
+            a:textStyle="bold" />
+
+        <TextView
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="15dp"
+            a:text="@string/error_desc"
+            a:textSize="17dp" />
+
+        <TextView
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:text="@string/error_comment" />
+
+        <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+        <LinearLayout
+            a:id="@+id/dummy"
+            a:layout_width="0px"
+            a:layout_height="0px"
+            a:focusable="true"
+            a:focusableInTouchMode="true" />
+
+
+<!-- :nextFocusUp and :nextFocusLeft have been set to the id of this component
+     to prevent the dummy from receiving focus again -->
+        
+        <EditText
+            a:id="@+id/comment"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:inputType="textMultiLine"
+            a:nextFocusLeft="@id/comment"
+            a:nextFocusUp="@id/comment" />
+
+        <LinearLayout
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:layout_gravity="center"
+            a:orientation="horizontal" >
+
+            <Button
+                a:id="@+id/send"
+                a:layout_width="wrap_content"
+                a:layout_height="wrap_content"
+                a:layout_marginRight="10dp"
+                a:paddingLeft="10dp"
+                a:paddingRight="10dp"
+                a:text="@string/error_send" />
+
+            <Button
+                a:id="@+id/close"
+                a:layout_width="wrap_content"
+                a:layout_height="wrap_content"
+                a:paddingLeft="10dp"
+                a:paddingRight="10dp"
+                a:text="@string/error_close" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

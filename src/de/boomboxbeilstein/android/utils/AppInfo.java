@@ -37,4 +37,13 @@ public class AppInfo {
 		}
 		return fullVersion;
 	}
+	
+	public static String getFullVersion() {
+		if (fullVersion != null)
+			return fullVersion;
+		else if (version != null)
+			return version + "";
+		else
+			return "";
+	}
 }

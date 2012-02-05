@@ -4,8 +4,6 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +14,7 @@ import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Show;
 import de.boomboxbeilstein.android.ShowInfo;
 import de.boomboxbeilstein.android.utils.Images;
+import de.boomboxbeilstein.android.utils.Strings;
 import de.boomboxbeilstein.android.utils.Web;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 
@@ -84,9 +83,9 @@ public class LiveActivity extends BaseActivity {
 			else
 				showDescription.setText(show.getText());
 			
-			if (!show.getImageURL().equals(lastShowImagerURL)) {
+			if (lastShowImagerURL == null || lastShowImagerURL.equals(show.getImageURL())) {
 				ImageView showImage = (ImageView) findViewById(R.id.show_image);
-				if (!show.getImageURL().equals(""))
+				if (show.getImageURL() != null && !show.getImageURL().equals(""))
 					Images.loadImageAsynchronously(show.getImageURL(), showImage, this);
 				else
 					showImage.setImageBitmap(null);
@@ -94,7 +93,7 @@ public class LiveActivity extends BaseActivity {
 			}
 			
 			MarqueeTextView showPreview = (MarqueeTextView)findViewById(R.id.show_preview);
-			if (!showInfo.getPreviewTitle().equals("")) {
+			if (!Strings.isEmpty(showInfo.getPreviewTitle())) {
 				showPreview.setTextLazily(getResources().getString(R.string.show_preview, showInfo.getPreviewTitle()));
 				showPreview.setVisibility(View.VISIBLE);
 			} else

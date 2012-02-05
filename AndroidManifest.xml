@@ -39,6 +39,8 @@
         </activity>
         <activity a:name=".ui.UpdateActivity" >
         </activity>
+        <activity a:name=".ui.ErrorActivity" >
+        </activity>
     </application>
 
 </manifest>

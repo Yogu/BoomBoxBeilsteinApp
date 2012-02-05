@@ -24,4 +24,10 @@
     <string name="image_logo">Logo</string>
     <string name="image_show">Bild zur Sendung</string>
 
+	<string name="error_title">Anwendungsfehler</string>
+	<string name="error_desc">Sie haben gerade einen Fehler in dieser Anwendung entdeckt.\n\nUm den Fehler beheben zu können, benötigen wir einen automatisch generierten Fehlerbericht. Wir wären Ihnen dankbar, wenn Sie diesen über die unten stehende Schaltfläche abschicken würden. Der Bericht enthält keine personen- oder gerätebezogenen Daten.\n\nWir bitten, die Unannehmlichkeit zu entschuldigen.</string>
+	<string name="error_send">Fehlerbericht senden</string>
+	<string name="error_close">Nicht senden</string>
+	<string name="error_comment">Kommentare, evlt. E-Mail-Adresse (optional):</string>
+	<string name="error_thankyou">Vielen Dank!</string>
 </resources>

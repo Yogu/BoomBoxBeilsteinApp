@@ -1,7 +1,6 @@
 package de.boomboxbeilstein.android.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,8 +11,8 @@ import de.boomboxbeilstein.android.Play;
 import de.boomboxbeilstein.android.PlayerInfo;
 import de.boomboxbeilstein.android.R;
 import de.boomboxbeilstein.android.Track;
-import de.boomboxbeilstein.android.UpdateService;
 import de.boomboxbeilstein.android.utils.Images;
+import de.boomboxbeilstein.android.utils.Strings;
 import de.boomboxbeilstein.android.views.MarqueeTextView;
 
 public class MainActivity extends LiveActivity {
@@ -50,7 +49,7 @@ public class MainActivity extends LiveActivity {
 
 		findViewById(R.id.link).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(HOMEPAGE_URL));
+				Intent intent = null;//new Intent(Intent.ACTION_VIEW, Uri.parse(HOMEPAGE_URL));
 				startActivity(intent);
 			}
 		});
@@ -82,9 +81,9 @@ public class MainActivity extends LiveActivity {
 				MarqueeTextView title = (MarqueeTextView) findViewById(R.id.current_title);
 				title.setTextLazily(track.getArtist() + " – " + track.getTitle());
 	
-				if (!lastCoverURL.equals(track.getCoverURL())) {
+				if (lastCoverURL == null || !lastCoverURL.equals(track.getCoverURL())) {
 					ImageView cover = (ImageView) findViewById(R.id.current_cover);
-					if (!track.getCoverURL().equals(""))
+					if (!Strings.isEmpty(track.getCoverURL()))
 						Images.loadImageAsynchronously(track.getCoverURL(), cover, this);
 					else
 						cover.setImageBitmap(null);
@@ -93,7 +92,7 @@ public class MainActivity extends LiveActivity {
 	
 				View lyricsWrap = findViewById(R.id.lyrics_wrap);
 				TextView lyrics = (TextView) findViewById(R.id.lyrics);
-				if (!"".equals(track.getLyrics())) {
+				if (!Strings.isEmpty(track.getLyrics())) {
 					lyrics.setText(track.getLyrics());
 					lyricsWrap.setVisibility(View.VISIBLE);
 				} else

@@ -1,7 +1,5 @@
 package de.boomboxbeilstein.android;
 
-import java.io.IOException;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,7 +14,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import de.boomboxbeilstein.android.ui.MainActivity;
-import de.boomboxbeilstein.android.utils.Exceptions;
 
 public class BBService extends Service {
 	private MediaPlayer player;
@@ -27,6 +24,7 @@ public class BBService extends Service {
 	private static Object lockObj = new Object();
 
 	private static final int NOTIFY_ID = 1;
+	private static final String TAG = "BBService";
 
 	public class ServiceBinder extends Binder {
 		public BBService getService() {
@@ -111,12 +109,10 @@ public class BBService extends Service {
 				}
 			});
 			player.prepareAsync();
-		} catch (IOException e) {
-			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
-		} catch (IllegalArgumentException e) {
-			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
-		} catch (IllegalStateException e) {
-			Log.e(getClass().getSimpleName(), Exceptions.formatException(e));
+		} catch (Exception e) {
+			Log.e(TAG, "Error preparing stream");
+			e.printStackTrace();
+			showError();
 		}
 	}
 
@@ -159,11 +155,10 @@ public class BBService extends Service {
 		CharSequence contentTitle = getResources().getString(R.string.app_name);
 
 		Intent notificationIntent = new Intent(this, MainActivity.class);
-		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-			Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		if (contentIntent == null) {
-			Log.e(getClass().getSimpleName(), "PendingIntent.getActivity() returned null");
+			Log.e(TAG, "PendingIntent.getActivity() returned null");
 			return;
 		}
 
