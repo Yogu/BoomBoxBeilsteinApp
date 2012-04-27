@@ -7,6 +7,7 @@ public class PlayerInfo {
 	private List<Play> plays;
 	private Countdown countdown;
 	private MailInfo mail;
+	private ServerStatus serverStatus;
 	
 	public ShowInfo getShowInfo() {
 		return showInfo;
@@ -37,5 +38,9 @@ public class PlayerInfo {
 	
 	public MailInfo getMail() {
 		return mail;
+	}
+	
+	public ServerStatus getServerStatus() {
+		return serverStatus;
 	}
 }

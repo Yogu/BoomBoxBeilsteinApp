@@ -1,16 +1,22 @@
 package de.boomboxbeilstein.android2.ui;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import de.boomboxbeilstein.android2.BBService;
 import de.boomboxbeilstein.android2.InfoProvider;
 import de.boomboxbeilstein.android2.Play;
 import de.boomboxbeilstein.android2.PlayerInfo;
 import de.boomboxbeilstein.android2.R;
+import de.boomboxbeilstein.android2.ServerStatus;
 import de.boomboxbeilstein.android2.Track;
 import de.boomboxbeilstein.android2.UpdateService;
 import de.boomboxbeilstein.android2.utils.Images;
@@ -67,6 +73,13 @@ public class MainActivity extends LiveActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, MailActivity.class);
 				startActivity(intent);
+			}
+		});
+
+		final View upView = findViewById(R.id.server_up);
+		upView.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				upView.setVisibility(View.GONE);
 			}
 		});
 	}
@@ -126,6 +139,58 @@ public class MainActivity extends LiveActivity {
 			mailButton.setVisibility(View.VISIBLE);
 		else
 			mailButton.setVisibility(View.GONE);
+		
+		ServerStatus serverStatus = info.getServerStatus();
+		View downView = findViewById(R.id.server_down);
+		View upView = findViewById(R.id.server_up);
+		if (serverStatus != null && serverStatus.isDown()) {
+			TextView downTitle = (TextView)findViewById(R.id.server_down_title);
+			TextView downMessage = (TextView)findViewById(R.id.server_down_message);
+			downTitle.setText(serverStatus.getDownTitle());
+			downMessage.setText(serverStatus.getDownMessage());
+			downView.setVisibility(View.VISIBLE);
+			upView.setVisibility(View.GONE);
+		} else if (downView.getVisibility() == View.VISIBLE) {
+			downView.setVisibility(View.GONE);
+			if (serverStatus != null) {
+				TextView upTitle = (TextView)findViewById(R.id.server_up_title);
+				TextView upMessage = (TextView)findViewById(R.id.server_up_message);
+				upTitle.setText(serverStatus.getUpAgainTitle());
+				upMessage.setText(serverStatus.getUpAgainMessage());
+				upView.setVisibility(View.VISIBLE);
+				BBService.retry();
+			}
+		}
+		
 		updateShowUI();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.menu, menu);
+	    return true;
+	}
+
+	// This method is called once the menu is selected
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    // We have only one menu option
+	    case R.id.show_version:
+	    	final Dialog dialog = new Dialog(this);
+	    	dialog.setContentView(R.layout.info);
+	    	dialog.setTitle(getResources().getString(R.string.app_title));
+	    	dialog.setCancelable(true);
+	    	dialog.findViewById(R.id.close).setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					}
+				});
+				dialog.show();
+				break;
+	    }
+	    return true;
 	}
 }

@@ -38,6 +38,84 @@
             a:gravity="center_horizontal" >
         </TextView>
     </LinearLayout>
+    
+    <!-- server down -->
+
+    <RelativeLayout
+        a:id="@+id/server_down"
+        style="@style/box"
+        a:layout_width="fill_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="5dp"
+        a:visibility="gone" >
+
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
+            a:id="@+id/server_down_title"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="2dp"
+            a:ellipsize="marquee"
+            a:singleLine="true"
+            a:textStyle="bold" />
+
+        <ImageView
+            a:id="@+id/server_down_icon"
+            a:src="@drawable/server_down"
+            a:layout_width="60dp"
+            a:layout_height="wrap_content"
+            a:layout_marginRight="5dp"
+            a:layout_below="@id/server_down_title"
+            a:contentDescription="@string/server_down"
+            a:scaleType="centerInside" />
+
+        <TextView
+            a:id="@+id/server_down_message"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="2dp"
+            a:layout_below="@id/server_down_title"
+            a:layout_toRightOf="@id/server_down_icon"
+            a:singleLine="false" />
+    </RelativeLayout>
+    
+    <!-- server up again -->
+
+    <RelativeLayout
+        a:id="@+id/server_up"
+        style="@style/clickbox"
+        a:layout_width="fill_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="5dp"
+        a:visibility="gone" >
+
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
+            a:id="@+id/server_up_title"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="2dp"
+            a:ellipsize="marquee"
+            a:singleLine="true"
+            a:textStyle="bold" />
+
+        <ImageView
+            a:id="@+id/server_up_icon"
+            a:src="@drawable/server_up"
+            a:layout_width="60dp"
+            a:layout_height="wrap_content"
+            a:layout_marginRight="5dp"
+            a:layout_below="@id/server_up_title"
+            a:contentDescription="@string/server_up"
+            a:scaleType="centerInside" />
+
+        <TextView
+            a:id="@+id/server_up_message"
+            a:layout_width="match_parent"
+            a:layout_height="wrap_content"
+            a:layout_marginBottom="2dp"
+            a:layout_below="@id/server_up_title"
+            a:layout_toRightOf="@id/server_up_icon"
+            a:singleLine="false" />
+    </RelativeLayout>
 
     <!-- show -->
 

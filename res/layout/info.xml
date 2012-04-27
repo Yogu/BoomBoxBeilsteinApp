@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="fill_parent"
+    a:layout_height="wrap_content"
+    a:orientation="vertical"
+    a:padding="10dp" >
+
+    <TextView
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="10dp"
+        a:text="@string/info_message" />
+
+    <TextView
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="10dp"
+        a:text="@string/info_copyright" />
+
+    <TextView
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="10dp"
+        a:autoLink="all"
+        a:text="@string/info_link" />
+
+    <Button
+        a:id="@+id/close"
+        a:layout_width="wrap_content"
+        a:layout_height="wrap_content"
+        a:layout_gravity="center_horizontal"
+        a:text="@string/info_close" />
+
+</LinearLayout>

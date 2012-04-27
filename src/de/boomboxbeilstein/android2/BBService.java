@@ -44,27 +44,7 @@ public class BBService extends Service {
 	public void onStart(Intent intent, int startId) {
 		if (player.isPlaying())
 			return;
-
-		notifyBar(getResources().getString(R.string.loading_stream));
-
-		if (InfoProvider.hasReceivedGeneralInfo()) {
-			GeneralInfo info = InfoProvider.getGeneralInfo();
-			if (info != null && info.getStreamURL() != null)
-				prepareMediaPlayer(InfoProvider.getGeneralInfo().getStreamURL());
-			else
-				showError();
-		} else {
-			new Thread(new Runnable() {
-				public void run() {
-					GeneralInfo info = InfoProvider.getGeneralInfo();
-					String url = info != null ? info.getStreamURL() : null;
-					if (url != null)
-						prepareMediaPlayer(url);
-					else
-						showError();
-				}
-			}).start();
-		}
+		load();
 	}
 
 	public void onDestroy() {
@@ -84,6 +64,40 @@ public class BBService extends Service {
 				currentService.isStopped = true;
 				currentService.player.stop();
 			}
+		}
+	}
+	
+	public static void retry() {
+		synchronized (lockObj) {
+			if (currentService != null) {
+				currentService.load();
+			}
+		}
+	}
+	
+	private void load() {
+		if (player.isPlaying())
+			return;
+		
+		notifyBar(getResources().getString(R.string.loading_stream));
+
+		if (InfoProvider.hasReceivedGeneralInfo()) {
+			GeneralInfo info = InfoProvider.getGeneralInfo();
+			if (info != null && info.getStreamURL() != null)
+				prepareMediaPlayer(InfoProvider.getGeneralInfo().getStreamURL());
+			else
+				showError();
+		} else {
+			new Thread(new Runnable() {
+				public void run() {
+					GeneralInfo info = InfoProvider.getGeneralInfo();
+					String url = info != null ? info.getStreamURL() : null;
+					if (url != null)
+						prepareMediaPlayer(url);
+					else
+						showError();
+				}
+			}).start();
 		}
 	}
 

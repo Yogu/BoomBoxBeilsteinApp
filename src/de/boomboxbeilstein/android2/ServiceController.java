@@ -7,7 +7,7 @@ public class ServiceController {
 	private Context context;
 	private static boolean isPlaying = false;
 
-	private static final String SERVICE_PACKAGE_NAME = "de.boomboxbeilstein.android";
+	private static final String SERVICE_PACKAGE_NAME = "de.boomboxbeilstein.android2";
 	private static final String SERVICE_NAME = SERVICE_PACKAGE_NAME + ".BBService";
 
 	public ServiceController(Context context) {

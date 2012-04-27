@@ -36,6 +36,9 @@
     <string name="mail_success">Vielen Dank für deine Mail!</string>
     <string name="mail_failed">Fehler beim Senden der Mail. Bitte versuchen Sie es in kürze noch einmal.</string>
     <string name="sending_mail">Die Mail wird gesendet…,</string>
+    
+    <string name="server_down">Radio ist offline</string>
+    <string name="server_up">Radio ist wieder online</string>
 
 	<string name="error_title">Anwendungsfehler</string>
 	<string name="error_desc">Sie haben einen Fehler in dieser Anwendung entdeckt.\n\nUm den Fehler beheben zu können, benötigen wir einen automatisch generierten Fehlerbericht. Wir wären Ihnen dankbar, wenn Sie diesen über die unten stehende Schaltfläche abschicken würden. Der Bericht enthält keine personen- oder gerätebezogenen Daten.\n\nWir bitten, die Unannehmlichkeit zu entschuldigen.</string>
@@ -43,4 +46,10 @@
 	<string name="error_close">Nicht senden</string>
 	<string name="error_comment">Kommentare, evlt. E-Mail-Adresse (optional):</string>
 	<string name="error_thankyou">Vielen Dank!</string>
+	
+    <string name="show_version">App-Info</string>
+    <string name="info_message">BoomBoxBeilstein App Version 1.2 (27. April 2012)</string>
+    <string name="info_copyright">© BoomBoxBeilstein, 2011–2012. App © Jan Melcher, 2011–2012</string>
+    <string name="info_link">www.boomboxbeilstein.de</string>
+    <string name="info_close">Schlieen</string>
 </resources>
