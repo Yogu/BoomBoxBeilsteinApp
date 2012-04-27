@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="match_parent"
+    a:layout_height="wrap_content"
+    a:orientation="vertical" >
+
+    <Spinner
+        a:id="@+id/type"
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:entries="@array/mailTypes" >
+
+        <requestFocus />
+    </Spinner>
+
+    <EditText
+        a:id="@+id/name"
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:hint="@string/mail_name_hint"
+        a:inputType="textPersonName" >
+    </EditText>
+
+    <EditText
+        a:id="@+id/subject"
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:hint="@string/mail_subject_hint"
+        a:inputType="textEmailSubject" />
+
+    <EditText
+        a:id="@+id/message"
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:gravity="top"
+        a:hint="@string/mail_message_hint"
+        a:inputType="textShortMessage"
+        a:minHeight="200dp" />
+
+    <LinearLayout
+        a:layout_width="match_parent"
+        a:layout_height="wrap_content"
+        a:gravity="center_horizontal">
+
+        <Button
+            a:id="@+id/send"
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:layout_marginRight="10dp"
+            a:text="@string/mail_send" />
+
+        <Button
+            a:id="@+id/cancel"
+            a:layout_width="wrap_content"
+            a:layout_height="wrap_content"
+            a:text="@string/mail_cancel" />
+    </LinearLayout>
+</LinearLayout>

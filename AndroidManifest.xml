@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:a="http://schemas.android.com/apk/res/android"
-    package="de.boomboxbeilstein.android"
+    package="de.boomboxbeilstein.android2"
     a:versionCode="7"
     a:versionName="1.1" >
 
@@ -18,10 +18,10 @@
             a:label="@string/app_name" >
         </activity>
 
-        <service a:name="de.boomboxbeilstein.android.BBService" >
+        <service a:name="de.boomboxbeilstein.android2.BBService" >
         </service>
 
-        <service a:name="de.boomboxbeilstein.android.UpdateService" >
+        <service a:name="de.boomboxbeilstein.android2.UpdateService" >
         </service>
 
         <activity a:name=".ui.MainActivity" >
@@ -41,6 +41,7 @@
         </activity>
         <activity a:name=".ui.ErrorActivity" >
         </activity>
+        <activity a:name=".ui.MailActivity" />
     </application>
 
 </manifest>

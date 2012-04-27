@@ -25,6 +25,17 @@
     <string name="image_cover">Cover des aktuellen Titels</string>
     <string name="image_logo">Logo</string>
     <string name="image_show">Bild zur Sendung</string>
+    <string name="please_wait">Bitte warten</string>
+    
+    <string name="open_mail_form">Mail ins Studio senden</string>
+    <string name="mail_name_hint">Dein Name</string>
+    <string name="mail_subject_hint">Betreff</string>
+    <string name="mail_message_hint">Nachricht</string>
+    <string name="mail_send">Abschicken</string>
+    <string name="mail_cancel">Abbrechen</string>
+    <string name="mail_success">Vielen Dank für deine Mail!</string>
+    <string name="mail_failed">Fehler beim Senden der Mail. Bitte versuchen Sie es in kürze noch einmal.</string>
+    <string name="sending_mail">Die Mail wird gesendet…,</string>
 
 	<string name="error_title">Anwendungsfehler</string>
 	<string name="error_desc">Sie haben einen Fehler in dieser Anwendung entdeckt.\n\nUm den Fehler beheben zu können, benötigen wir einen automatisch generierten Fehlerbericht. Wir wären Ihnen dankbar, wenn Sie diesen über die unten stehende Schaltfläche abschicken würden. Der Bericht enthält keine personen- oder gerätebezogenen Daten.\n\nWir bitten, die Unannehmlichkeit zu entschuldigen.</string>

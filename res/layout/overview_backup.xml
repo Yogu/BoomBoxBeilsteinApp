@@ -20,7 +20,7 @@
             a:layout_marginRight="5dp"
             a:scaleType="centerInside" />
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_header"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -29,9 +29,9 @@
             a:ellipsize="marquee"
             a:singleLine="true"
             a:text="@string/current_show" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_title"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -41,9 +41,9 @@
             a:ellipsize="marquee"
             a:singleLine="true"
             a:textStyle="bold" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_description"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -51,9 +51,9 @@
             a:layout_toRightOf="@id/show_image"
             a:ellipsize="marquee"
             a:singleLine="true" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_preview"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             a:ellipsize="marquee"
             a:singleLine="true"
             a:visibility="gone" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
     </RelativeLayout>
 
     <!-- track -->
@@ -90,16 +90,16 @@
             a:layout_weight=".50"
             a:orientation="vertical" >
 
-            <de.boomboxbeilstein.android.views.MarqueeTextView
+            <de.boomboxbeilstein.android2.views.MarqueeTextView
                 a:id="@+id/current_artist"
                 a:layout_width="match_parent"
                 a:layout_height="wrap_content"
                 a:layout_marginBottom="5dp"
                 a:ellipsize="marquee"
                 a:singleLine="true" >
-            </de.boomboxbeilstein.android.views.MarqueeTextView>
+            </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-            <de.boomboxbeilstein.android.views.MarqueeTextView
+            <de.boomboxbeilstein.android2.views.MarqueeTextView
                 a:id="@+id/current_title"
                 a:layout_width="match_parent"
                 a:layout_height="wrap_content"
@@ -107,15 +107,15 @@
                 a:ellipsize="marquee"
                 a:singleLine="true"
                 a:textStyle="bold" >
-            </de.boomboxbeilstein.android.views.MarqueeTextView>
+            </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-            <de.boomboxbeilstein.android.views.MarqueeTextView
+            <de.boomboxbeilstein.android2.views.MarqueeTextView
                 a:id="@+id/current_album"
                 a:layout_width="match_parent"
                 a:layout_height="wrap_content"
                 a:ellipsize="marquee"
                 a:singleLine="true" >
-            </de.boomboxbeilstein.android.views.MarqueeTextView>
+            </de.boomboxbeilstein.android2.views.MarqueeTextView>
         </LinearLayout>
     </LinearLayout>
 

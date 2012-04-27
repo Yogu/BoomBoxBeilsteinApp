@@ -11,7 +11,7 @@
         a:layout_marginBottom="5dp"
         a:orientation="vertical" >
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_header"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -19,9 +19,9 @@
             a:gravity="center_horizontal"
             a:singleLine="true"
             a:text="@string/current_show" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_title"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -30,9 +30,9 @@
             a:gravity="center_horizontal"
             a:singleLine="true"
             a:textStyle="bold" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
-        <de.boomboxbeilstein.android.views.MarqueeTextView
+        <de.boomboxbeilstein.android2.views.MarqueeTextView
             a:id="@+id/show_preview"
             a:layout_width="match_parent"
             a:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             a:ellipsize="marquee"
             a:singleLine="true"
             a:visibility="gone" >
-        </de.boomboxbeilstein.android.views.MarqueeTextView>
+        </de.boomboxbeilstein.android2.views.MarqueeTextView>
 
         <TextView
             a:id="@+id/show_description"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="mailTypes">
+        <item>Bitte wählen…</item>
+        <item>Liedwunsch</item>
+        <item>Gruß</item>
+        <item>Sonstige Mail</item>
+    </string-array>
+    
+    <string-array name="mailTypeValues">
+        <item></item>
+        <item>song-request</item>
+        <item>greeting</item>
+        <item>other</item>
+    </string-array>
+</resources>
