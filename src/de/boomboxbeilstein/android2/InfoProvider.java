@@ -18,8 +18,8 @@ import de.boomboxbeilstein.android2.utils.Web;
 public class InfoProvider {
 	//public static final String URL = "http://quick/~jan/bbb/";
 	// public static final String URL = "http://yogu.square7.net/bbb/";
-	//public static final String URL = "http://www.boomboxbeilstein.de/player/";
-	public static final String URL = "http://quick-ubuntu:8090/";
+	public static final String URL = "http://www.boomboxbeilstein.de/player/";
+	//public static final String URL = "http://quick-ubuntu:8090/";
 	public static final Duration UPDATE_INTERVAL = Duration.standardSeconds(5);
 	public static final Duration INFO_EXPIRE = Duration.standardSeconds(30);
 	public static final Duration GENERAL_EXPIRE = Duration.standardMinutes(5);
