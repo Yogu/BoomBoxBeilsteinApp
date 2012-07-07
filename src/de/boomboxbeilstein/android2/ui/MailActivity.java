@@ -21,7 +21,10 @@ import de.boomboxbeilstein.android2.R;
 public class MailActivity extends BaseActivity {
 	private View sendButton;
 	private EditText messageView;
+	private EditText nameView;
 	private Spinner typeView;
+	
+	private static String name;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,10 +33,13 @@ public class MailActivity extends BaseActivity {
 		sendButton = findViewById(R.id.send);
 		messageView = (EditText)findViewById(R.id.message);
 		typeView = (Spinner)findViewById(R.id.type);
+		nameView = (EditText)findViewById(R.id.name);
+		nameView.setText(name);
 		
 		sendButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				name = nameView.getText().toString();
 				trySend();
 			}
 		});
@@ -41,7 +47,7 @@ public class MailActivity extends BaseActivity {
 		findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(MailActivity.this, MainActivity.class));
+				finish();
 			}
 		});
 		
@@ -89,7 +95,7 @@ public class MailActivity extends BaseActivity {
 				getResources().getString(R.string.sending_mail), true, true, new OnCancelListener() {
 					@Override
 					public void onCancel(DialogInterface dialog) {
-						startActivity(new Intent(MailActivity.this, MainActivity.class));
+						finish();
 					}
 				});
 		
@@ -108,7 +114,7 @@ public class MailActivity extends BaseActivity {
 							if (result) {
 								Toast.makeText(MailActivity.this, getResources().getString(R.string.mail_success), 
 										Toast.LENGTH_SHORT).show();
-								startActivity(new Intent(MailActivity.this, MainActivity.class));
+								finish();
 							} else {
 								Toast.makeText(MailActivity.this, getResources().getString(R.string.mail_failed), 
 										Toast.LENGTH_LONG).show();

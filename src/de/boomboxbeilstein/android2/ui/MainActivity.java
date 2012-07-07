@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import de.boomboxbeilstein.android2.BBService;
@@ -180,6 +181,9 @@ public class MainActivity extends LiveActivity {
 	    case R.id.show_version:
 	    	final Dialog dialog = new Dialog(this);
 	    	dialog.setContentView(R.layout.info);
+	    	LayoutParams params = dialog.getWindow().getAttributes();
+	        params.width = LayoutParams.FILL_PARENT;
+	        dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 	    	dialog.setTitle(getResources().getString(R.string.app_title));
 	    	dialog.setCancelable(true);
 	    	dialog.findViewById(R.id.close).setOnClickListener(new OnClickListener() {

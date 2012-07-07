@@ -34,7 +34,8 @@
         a:layout_height="wrap_content"
         a:gravity="top"
         a:hint="@string/mail_message_hint"
-        a:inputType="textShortMessage"
+        a:singleLine="false"
+        a:inputType="textMultiLine"
         a:minHeight="200dp" />
 
     <LinearLayout

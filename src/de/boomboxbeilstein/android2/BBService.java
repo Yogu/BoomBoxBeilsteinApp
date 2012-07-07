@@ -158,6 +158,9 @@ public class BBService extends Service {
 	}
 
 	private void notifyBar(String tickerText, String content, boolean vibrate) {
+		if (isStopped)
+			return;
+		
 		String ns = Context.NOTIFICATION_SERVICE;
 		NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 

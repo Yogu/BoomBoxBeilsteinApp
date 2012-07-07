@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.google.gson.JsonSyntaxException;
+
 import android.util.Log;
 import de.boomboxbeilstein.android2.utils.GsonFactory;
 import de.boomboxbeilstein.android2.utils.Web;
@@ -31,6 +33,10 @@ public class MailSender {
 			SendMailResponse response = GsonFactory.createGson().fromJson(str, SendMailResponse.class);
 			return response.wasSuccessful();
 		} catch (IOException e) {
+			Log.e(TAG, "Error sending mail");
+			e.printStackTrace();
+			return false;
+		} catch (JsonSyntaxException e) {
 			Log.e(TAG, "Error sending mail");
 			e.printStackTrace();
 			return false;
