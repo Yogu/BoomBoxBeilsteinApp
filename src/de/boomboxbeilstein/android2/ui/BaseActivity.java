@@ -20,7 +20,7 @@ import de.boomboxbeilstein.android2.UpdateService;
 import de.boomboxbeilstein.android2.utils.AppInfo;
 import de.boomboxbeilstein.android2.utils.Files;
 
-public class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity {
 	private ServiceController service;
 	
 	private static final String TAG = "BaseActivity";

@@ -18,7 +18,7 @@ import de.boomboxbeilstein.android2.utils.Strings;
 import de.boomboxbeilstein.android2.utils.Web;
 import de.boomboxbeilstein.android2.views.MarqueeTextView;
 
-public class LiveActivity extends BaseActivity {
+public abstract class LiveActivity extends BaseActivity {
 	private String lastShowImagerURL = "";
 	
 	private static final DateTimeFormatter timeFormat =
