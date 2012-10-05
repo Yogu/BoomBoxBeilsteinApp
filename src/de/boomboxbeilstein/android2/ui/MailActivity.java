@@ -47,7 +47,7 @@ public class MailActivity extends BaseActivity {
 		findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				finish();
+				goBack();
 			}
 		});
 		
@@ -76,6 +76,11 @@ public class MailActivity extends BaseActivity {
 		updateSendEnabled();
 	}
 	
+	private void goBack() {
+		name = nameView.getText().toString();
+		finish();
+	}
+	
 	private void updateSendEnabled() {
 		sendButton.setEnabled(
 			!messageView.getText().toString().trim().equals("")
@@ -95,7 +100,7 @@ public class MailActivity extends BaseActivity {
 				getResources().getString(R.string.sending_mail), true, true, new OnCancelListener() {
 					@Override
 					public void onCancel(DialogInterface dialog) {
-						finish();
+						goBack();
 					}
 				});
 		
@@ -114,7 +119,7 @@ public class MailActivity extends BaseActivity {
 							if (result) {
 								Toast.makeText(MailActivity.this, getResources().getString(R.string.mail_success), 
 										Toast.LENGTH_SHORT).show();
-								finish();
+								goBack();
 							} else {
 								Toast.makeText(MailActivity.this, getResources().getString(R.string.mail_failed), 
 										Toast.LENGTH_LONG).show();
